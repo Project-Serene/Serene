@@ -1,3 +1,0 @@
-C:/Users/manna/OneDrive/Documents/GitHub/SereneLua/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/manna/OneDrive/Documents/GitHub/SereneLua/src/cmake-build-debug/CMakeFiles/Serene.dir
-C:/Users/manna/OneDrive/Documents/GitHub/SereneLua/src/cmake-build-debug/CMakeFiles/edit_cache.dir

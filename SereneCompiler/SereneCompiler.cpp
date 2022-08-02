@@ -292,9 +292,11 @@ static bool compileFile(const std::string& name) {
     }
 }
 
-int main(int argc, char **argv) {
+extern bool CompileFile (char *file_path) {
 
-    const std::vector<std::string> files = getSourceFiles(argc, argv);
+    // I know u will hate this, but I do not have time to change function getSourceFiles.
+    char * _f[] = {file_path};
+    const std::vector<std::string> files = getSourceFiles(2, _f);
 
     if (files.empty()) {
         std::cout << "fatal error: no source files given" << std::endl;
@@ -310,24 +312,6 @@ int main(int argc, char **argv) {
     ReportFormat format = ReportFormat::Default;
     Luau::Mode mode = Luau::Mode::Nonstrict;
     bool annotate = false;
-
-    for (int i = 1; i < argc; ++i) {
-        if (argv[i][0] != '-')
-            continue;
-
-        if (strcmp(argv[i], "--formatter=plain") == 0)
-            format = ReportFormat::Luacheck;
-        else if (strcmp(argv[i], "--formatter=gnu") == 0)
-            format = ReportFormat::Gnu;
-        else if (strcmp(argv[i], "--mode=strict") == 0)
-            mode = Luau::Mode::Strict;
-        else if (strcmp(argv[i], "--annotate") == 0)
-            annotate = true;
-        else if (strcmp(argv[i], "--timetrace") == 0)
-            FFlag::DebugLuauTimeTracing.value = true;
-        else if (strncmp(argv[i], "--fflags=", 9) == 0)
-            setLuauFlags(argv[i] + 9);
-    }
 
     /*
 
@@ -373,7 +357,7 @@ int main(int argc, char **argv) {
 
         if (failed) {
             fprintf(stderr, "Compilation terminated.  %i files failed script analysis.", failed);
-            return 1;
+            return false;
         }
 
     }
@@ -395,12 +379,12 @@ int main(int argc, char **argv) {
 
         if (failed) {
             fprintf(stderr, "Compilation Terminated.");
-            return 1;
+            return false;
         }
 
     }
 
     std::cout << "Compilation Successful." << std::endl;
-    return 0;
+    return true;
 }
 

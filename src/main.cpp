@@ -12,7 +12,7 @@
  * matching alignment when accessed using iterator in main(). */
 
 void initialize() {
-    lua_State *L =
+
 }
 
 /**
