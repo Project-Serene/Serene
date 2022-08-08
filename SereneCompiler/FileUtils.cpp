@@ -10,7 +10,9 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+
 #include <Windows.h>
+
 #else
 #include <dirent.h>
 #include <fcntl.h>
@@ -21,8 +23,8 @@
 #include <string.h>
 
 #ifdef _WIN32
-static std::wstring fromUtf8(const std::string& path)
-{
+
+static std::wstring fromUtf8(const std::string &path) {
     size_t result = MultiByteToWideChar(CP_UTF8, 0, path.data(), int(path.size()), nullptr, 0);
     LUAU_ASSERT(result);
 
@@ -32,8 +34,7 @@ static std::wstring fromUtf8(const std::string& path)
     return buf;
 }
 
-static std::string toUtf8(const std::wstring& path)
-{
+static std::string toUtf8(const std::wstring &path) {
     size_t result = WideCharToMultiByte(CP_UTF8, 0, path.data(), int(path.size()), nullptr, 0, nullptr, nullptr);
     LUAU_ASSERT(result);
 
@@ -42,12 +43,12 @@ static std::string toUtf8(const std::wstring& path)
 
     return buf;
 }
+
 #endif
 
-std::optional<std::string> readFile(const std::string& name)
-{
+std::optional<std::string> readFile(const std::string &name) {
 #ifdef _WIN32
-    FILE* file = _wfopen(fromUtf8(name).c_str(), L"rb");
+    FILE *file = _wfopen(fromUtf8(name).c_str(), L"rb");
 #else
     FILE* file = fopen(name.c_str(), "rb");
 #endif
@@ -57,8 +58,7 @@ std::optional<std::string> readFile(const std::string& name)
 
     fseek(file, 0, SEEK_END);
     long length = ftell(file);
-    if (length < 0)
-    {
+    if (length < 0) {
         fclose(file);
         return std::nullopt;
     }
@@ -80,7 +80,7 @@ std::optional<std::string> readFile(const std::string& name)
 }
 
 
-bool writeFile(const std::string &name,const void *str,int size,unsigned long long count) {
+bool writeFile(const std::string &name, const void *str, int size, unsigned long long count) {
 #ifdef _WIN32
     FILE *file = _wfopen(fromUtf8(name).c_str(), L"wb");
 #else
@@ -90,15 +90,14 @@ bool writeFile(const std::string &name,const void *str,int size,unsigned long lo
     if (!file)
         return false;
 
-    fwrite(str,size,count,file);
+    fwrite(str, size, count, file);
     fclose(file);
 
     return true;
 }
 
 
-std::optional<std::string> readStdin()
-{
+std::optional<std::string> readStdin() {
     std::string result;
     char buffer[4096] = {};
 
@@ -113,8 +112,7 @@ std::optional<std::string> readStdin()
 }
 
 template<typename Ch>
-static void joinPaths(std::basic_string<Ch>& str, const Ch* lhs, const Ch* rhs)
-{
+static void joinPaths(std::basic_string<Ch> &str, const Ch *lhs, const Ch *rhs) {
     str = lhs;
     if (!str.empty() && str.back() != '/' && str.back() != '\\' && *rhs != '/' && *rhs != '\\')
         str += '/';
@@ -122,8 +120,9 @@ static void joinPaths(std::basic_string<Ch>& str, const Ch* lhs, const Ch* rhs)
 }
 
 #ifdef _WIN32
-static bool traverseDirectoryRec(const std::wstring& path, const std::function<void(const std::string& name)>& callback)
-{
+
+static bool
+traverseDirectoryRec(const std::wstring &path, const std::function<void(const std::string &name)> &callback) {
     std::wstring query = path + std::wstring(L"/*");
 
     WIN32_FIND_DATAW data;
@@ -134,22 +133,15 @@ static bool traverseDirectoryRec(const std::wstring& path, const std::function<v
 
     std::wstring buf;
 
-    do
-    {
-        if (wcscmp(data.cFileName, L".") != 0 && wcscmp(data.cFileName, L"..") != 0)
-        {
+    do {
+        if (wcscmp(data.cFileName, L".") != 0 && wcscmp(data.cFileName, L"..") != 0) {
             joinPaths(buf, path.c_str(), data.cFileName);
 
-            if (data.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT)
-            {
+            if (data.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) {
                 // Skip reparse points to avoid handling cycles
-            }
-            else if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-            {
+            } else if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
                 traverseDirectoryRec(buf, callback);
-            }
-            else
-            {
+            } else {
                 callback(toUtf8(buf));
             }
         }
@@ -160,10 +152,10 @@ static bool traverseDirectoryRec(const std::wstring& path, const std::function<v
     return true;
 }
 
-bool traverseDirectory(const std::string& path, const std::function<void(const std::string& name)>& callback)
-{
+bool traverseDirectory(const std::string &path, const std::function<void(const std::string &name)> &callback) {
     return traverseDirectoryRec(fromUtf8(path), callback);
 }
+
 #else
 static bool traverseDirectoryRec(const std::string& path, const std::function<void(const std::string& name)>& callback)
 {
@@ -225,8 +217,7 @@ bool traverseDirectory(const std::string& path, const std::function<void(const s
 }
 #endif
 
-bool isDirectory(const std::string& path)
-{
+bool isDirectory(const std::string &path) {
 #ifdef _WIN32
     DWORD fileAttributes = GetFileAttributesW(fromUtf8(path).c_str());
     if (fileAttributes == INVALID_FILE_ATTRIBUTES)
@@ -239,8 +230,7 @@ bool isDirectory(const std::string& path)
 #endif
 }
 
-std::string joinPaths(const std::string& lhs, const std::string& rhs)
-{
+std::string joinPaths(const std::string &lhs, const std::string &rhs) {
     std::string result = lhs;
     if (!result.empty() && result.back() != '/' && result.back() != '\\')
         result += '/';
@@ -248,8 +238,7 @@ std::string joinPaths(const std::string& lhs, const std::string& rhs)
     return result;
 }
 
-std::optional<std::string> getParentPath(const std::string& path)
-{
+std::optional<std::string> getParentPath(const std::string &path) {
     if (path == "" || path == "." || path == "/")
         return std::nullopt;
 
@@ -269,8 +258,7 @@ std::optional<std::string> getParentPath(const std::string& path)
     return "";
 }
 
-static std::string getExtension(const std::string& path)
-{
+static std::string getExtension(const std::string &path) {
     size_t dot = path.find_last_of(".\\/");
 
     if (dot == std::string::npos || path[dot] != '.')
@@ -279,31 +267,15 @@ static std::string getExtension(const std::string& path)
     return path.substr(dot);
 }
 
-std::vector<std::string> getSourceFiles(int argc, char** argv)
-{
+std::vector<std::string> getSourceFiles(const char *directory) {
     std::vector<std::string> files;
 
-    for (int i = 1; i < argc; ++i)
-    {
-        // Treat '-' as a special file whose source is read from stdin
-        // All other arguments that start with '-' are skipped
-        if (argv[i][0] == '-' && argv[i][1] != '\0')
-            continue;
+    traverseDirectory(directory, [&](const std::string &name) {
+        std::string ext = getExtension(name);
 
-        if (isDirectory(argv[i]))
-        {
-            traverseDirectory(argv[i], [&](const std::string& name) {
-                std::string ext = getExtension(name);
-
-                if (ext == ".lua" || ext == ".luau")
-                    files.push_back(name);
-            });
-        }
-        else
-        {
-            files.push_back(argv[i]);
-        }
-    }
+        if (ext == ".lua" || ext == ".luau")
+            files.push_back(name);
+    });
 
     return files;
 }

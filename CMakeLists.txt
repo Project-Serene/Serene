@@ -24,7 +24,7 @@ add_library(Luau.Ast STATIC)
 add_library(Luau.Compiler STATIC)
 add_library(Luau.Analysis STATIC)
 add_library(Luau.CodeGen STATIC)
-add_library(Serene.Compiler STATIC)
+add_library(Serene.Compiler SHARED)
 
 if (LUAU_BUILD_CLI)
     add_executable(Luau.Repl.CLI)
@@ -109,3 +109,4 @@ target_compile_options(Luau.CodeGen PRIVATE ${LUAU_OPTIONS})
 if (LUAU_EXTERN_C)
     target_compile_definitions(Luau.Compiler PUBLIC LUACODE_API=extern\"C\")
 endif ()
+

@@ -292,16 +292,30 @@ static bool compileFile(const std::string& name) {
     }
 }
 
-extern bool CompileFile (char *file_path) {
+#if defined(_WIN32) || defined(__WIN32__)
+#    define  MYLIB_EXPORT extern "C" __declspec(dllexport)
+#elif defined(linux) || defined(__linux)
+# define MYLIB_EXPORT
+#endif
 
-    // I know u will hate this, but I do not have time to change function getSourceFiles.
-    char * _f[] = {file_path};
-    const std::vector<std::string> files = getSourceFiles(2, _f);
+MYLIB_EXPORT bool CompileFile(const char *directory) {
 
-    if (files.empty()) {
-        std::cout << "fatal error: no source files given" << std::endl;
-        return 1;
-    }
+    /*
+
+        Set our current working directory
+
+        this is so that, we can find files easily.
+
+     */
+
+    chdir(getParentPath(directory)->c_str());
+
+    const std::vector<std::string> files = {directory};
+//
+//    if (files.empty()) {
+//        std::cout << "fatal error: no source files given" << std::endl;
+//        return false;
+//    }
 
     /*
 
