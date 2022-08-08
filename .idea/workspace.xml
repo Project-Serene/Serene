@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="Luau" targetName="Luau.Ast" />
+      <config projectName="Luau" targetName="Luau.CodeGen" />
+      <config projectName="Luau" targetName="Luau.Ast.CLI" />
+      <config projectName="Luau" targetName="Luau.Analyze.CLI" />
+      <config projectName="Luau" targetName="Serene.Compiler" />
+      <config projectName="Luau" targetName="Luau.Repl.CLI" />
+      <config projectName="Luau" targetName="Luau.Common" />
+      <config projectName="Luau" targetName="Luau.Analysis" />
+      <config projectName="Luau" targetName="Luau.Compiler" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="009f77a6-c53f-47f7-8ce2-f661f7121d9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Serene.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/BYTECODE.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/lbaselib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/lbitlib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/lbuiltins.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/linit.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/lmathlib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/Libraries/loslib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lapi.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/laux.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lcorolib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ldblib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ldebug.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ldo.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lfunc.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lgc.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lgcdebug.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lmem.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lnumprint.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lobject.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lperf.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lstate.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lstring.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lstrlib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ltable.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ltablib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ltm.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/ludata.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lutf8lib.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lvmexecute.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lvmload.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/VM/lvmutils.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.d/main.cpp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SereneLua.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="2D3qyzvlCYEpKjmA6bahuIP7vjY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="CMake Application.Serene.Compiler">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Analysis" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Analysis" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Analyze.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Analyze.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Analyze.CLI">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Ast" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Ast" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Ast.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Ast.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Ast.CLI">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.CodeGen" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.CodeGen" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Common" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Common" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Compiler" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Compiler" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Luau.Repl.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Repl.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Repl.CLI">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Serene.Compiler" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Serene.Compiler" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.Luau.Analysis" />
+      <item itemvalue="CMake Application.Luau.Analyze.CLI" />
+      <item itemvalue="CMake Application.Luau.Ast" />
+      <item itemvalue="CMake Application.Luau.Ast.CLI" />
+      <item itemvalue="CMake Application.Luau.CodeGen" />
+      <item itemvalue="CMake Application.Luau.Common" />
+      <item itemvalue="CMake Application.Luau.Compiler" />
+      <item itemvalue="CMake Application.Luau.Repl.CLI" />
+      <item itemvalue="CMake Application.Serene.Compiler" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="009f77a6-c53f-47f7-8ce2-f661f7121d9e" name="Changes" comment="" />
+      <created>1659938373893</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1659938373893</updated>
+      <workItem from="1659938375157" duration="308000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

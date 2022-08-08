@@ -7,6 +7,9 @@
 *.elf
 
 # PROS
+.d
+.d/
+bin
 bin/
 .vscode/
 cmake-build-debug
