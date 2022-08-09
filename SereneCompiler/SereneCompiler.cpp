@@ -26,6 +26,7 @@
 
 #include "FileUtils.h"
 #include "Flags.h"
+#include "ByteCodeWriter.h"
 
 LUAU_FASTFLAG(DebugLuauTimeTracing)
 LUAU_FASTFLAG(LuauTypeMismatchModuleNameResolution)
@@ -267,7 +268,7 @@ struct CliConfigResolver : Luau::ConfigResolver {
 
  */
 
-static bool compileFile(const std::string& name) {
+static bool compileFile(const std::string &name, const std::string &output_file) {
     std::optional<std::string> source = readFile(name);
     if (!source) {
         fprintf(stderr, "Error opening %s\n", name.c_str());
@@ -277,7 +278,7 @@ static bool compileFile(const std::string& name) {
     try {
         Luau::BytecodeBuilder bcb;
         Luau::compileOrThrow(bcb, *source, copts());
-        writeFile(name+".bin", bcb.getBytecode().data(), 1, bcb.getBytecode().size());
+        writeByteCode(output_file.c_str(), bcb.getBytecode().data(),bcb.getBytecode().size());
 
         return true;
     }
@@ -298,7 +299,7 @@ static bool compileFile(const std::string& name) {
 # define MYLIB_EXPORT
 #endif
 
-MYLIB_EXPORT bool CompileFile(const char *directory) {
+MYLIB_EXPORT bool CompileFile(const char *source_file,const char *output_file) {
 
     /*
 
@@ -308,14 +309,7 @@ MYLIB_EXPORT bool CompileFile(const char *directory) {
 
      */
 
-    chdir(getParentPath(directory)->c_str());
-
-    const std::vector<std::string> files = {directory};
-//
-//    if (files.empty()) {
-//        std::cout << "fatal error: no source files given" << std::endl;
-//        return false;
-//    }
+    chdir(getParentPath(source_file)->c_str());
 
     /*
 
@@ -351,26 +345,22 @@ MYLIB_EXPORT bool CompileFile(const char *directory) {
         Luau::registerBuiltinTypes(frontend.typeChecker);
         Luau::freeze(frontend.typeChecker.globalTypes);
 
-        int failed = 0;
+        bool failed = false;
 
-        for (const std::string &path: files) {
-            int f = analyzeFile(frontend, path.c_str(), format, annotate);
-            if (f)
-                std::cout << "Analyzed " << path << " [OK]\n";
-            else
-                fprintf(stderr, "Analyzed %s [FAILED]\n", path.c_str());
-            failed += !f;
+        if (analyzeFile(frontend, source_file, format, annotate)) {
+            std::cout << "Analyzed files [OK]\n";
+        } else {
+            fprintf(stderr, "Analyzed %s [FAILED]\n", source_file);
+            failed = true;
         }
 
         if (!configResolver.configErrors.empty()) {
-            failed += int(configResolver.configErrors.size());
-
             for (const auto &pair: configResolver.configErrors)
                 fprintf(stderr, "%s: %s\n", pair.first.c_str(), pair.second.c_str());
         }
 
         if (failed) {
-            fprintf(stderr, "Compilation terminated.  %i files failed script analysis.", failed);
+            fprintf(stderr, "Compilation terminated.  [ERROR]");
             return false;
         }
 
@@ -382,23 +372,15 @@ MYLIB_EXPORT bool CompileFile(const char *directory) {
 
      */
 
-    std::cout << "Analyzed files\nStarting Script Compilation..." << std::endl;
+    std::cout << "Starting Script Compilation..." << std::endl;
 
-    {
 
-        int failed = 0;
-
-        for (const std::string &path: files)
-            failed += !compileFile(path);
-
-        if (failed) {
-            fprintf(stderr, "Compilation Terminated.");
-            return false;
-        }
-
+    if (!compileFile(source_file,output_file)) {
+        fprintf(stderr, "Compilation Terminated. [ERROR]");
+        return false;
     }
 
-    std::cout << "Compilation Successful." << std::endl;
+    std::cout << "Compilation Successful. [SUCCESS]\n" << std::endl;
     return true;
 }
 

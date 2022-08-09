@@ -1,18 +1,35 @@
 #include "main.h"
-#include "BYTECODE.h"
 #include "lua.h"
 #include "lualib.h"
 #include "luaconf.h"
+#include "serene_bytecode.h"
 
-/*
- * FROM STACKOVERFLOW: https://stackoverflow.com/questions/16552710/how-do-you-get-the-start-and-end-addresses-of-a-custom-elf-section
- *
- * The following two pointers will be placed in "SERENE_LUA_BYTECODE_CONTAINER".
- * Store pointers (instead of structs) in "my_custom_section" to ensure
- * matching alignment when accessed using iterator in main(). */
+lua_State *L;
 
 void initialize() {
 
+    printf("Initializing...\n");
+
+
+    /*
+    
+        Create our lua state and sandbox it.
+    
+    */
+
+    L = luaL_newstate();
+    luaL_openlibs(L);
+
+    int result = luau_load(L, "MainFile", BYTECODE, BYTECODE_SIZE, 0);
+
+    if (result == 0) {
+        lua_call(L,0,0);
+        printf("Ran Lua Code...\n");
+    } else {
+        printf("Failed to load...\n");
+    }
+
+    printf("Ran Initialization Code\n");
 }
 
 /**

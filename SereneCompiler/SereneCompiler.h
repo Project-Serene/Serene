@@ -19,7 +19,7 @@
 #define MYLIB_EXPORT
 #endif
 
-MYLIB_EXPORT bool CompileFile(const char *directory);
+MYLIB_EXPORT bool CompileFile(const char *source_file,const char *output_file);
 
 #undef MYLIB_EXPORT
 

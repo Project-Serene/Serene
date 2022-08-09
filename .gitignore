@@ -1,7 +1,8 @@
 # Compiled Object files
 *.o
 *.obj
-
+.cache
+.cache/
 # Executables
 *.bin
 *.elf

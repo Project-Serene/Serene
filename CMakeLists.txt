@@ -24,7 +24,7 @@ add_library(Luau.Ast STATIC)
 add_library(Luau.Compiler STATIC)
 add_library(Luau.Analysis STATIC)
 add_library(Luau.CodeGen STATIC)
-add_library(Serene.Compiler SHARED)
+add_library(Serene.Compiler SHARED SereneCompiler/ByteCodeWriter.h SereneCompiler/ByteCodeWriter.cpp)
 
 if (LUAU_BUILD_CLI)
     add_executable(Luau.Repl.CLI)
