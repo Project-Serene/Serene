@@ -155,39 +155,6 @@ target_sources(Luau.Analysis PRIVATE
         )
 
 
-if(TARGET Luau.Repl.CLI)
-    # Luau.Repl.CLI Sources
-    target_sources(Luau.Repl.CLI PRIVATE
-            CLI/Coverage.h
-            CLI/Coverage.cpp
-            CLI/FileUtils.h
-            CLI/FileUtils.cpp
-            CLI/Flags.h
-            CLI/Flags.cpp
-            CLI/Profiler.h
-            CLI/Profiler.cpp
-            CLI/Repl.cpp
-            CLI/ReplEntry.cpp)
-endif()
-
-if(TARGET Luau.Analyze.CLI)
-    # Luau.Analyze.CLI Sources
-    target_sources(Luau.Analyze.CLI PRIVATE
-            CLI/FileUtils.h
-            CLI/FileUtils.cpp
-            CLI/Flags.h
-            CLI/Flags.cpp
-            CLI/Analyze.cpp)
-endif()
-
-if(TARGET Luau.Ast.CLI)
-    target_sources(Luau.Ast.CLI PRIVATE
-            CLI/Ast.cpp
-            CLI/FileUtils.h
-            CLI/FileUtils.cpp
-            )
-endif()
-
 if (TARGET Serene.Compiler)
     target_sources(Serene.Compiler PRIVATE
             SereneCompiler/Flags.h

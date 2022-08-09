@@ -26,18 +26,6 @@ add_library(Luau.Analysis STATIC)
 add_library(Luau.CodeGen STATIC)
 add_library(Serene.Compiler SHARED SereneCompiler/ByteCodeWriter.h SereneCompiler/ByteCodeWriter.cpp)
 
-if (LUAU_BUILD_CLI)
-    add_executable(Luau.Repl.CLI)
-    add_executable(Luau.Analyze.CLI)
-    add_executable(Luau.Ast.CLI)
-
-    # This also adds target `name` on Linux/macOS and `name.exe` on Windows
-    set_target_properties(Luau.Repl.CLI PROPERTIES OUTPUT_NAME luau)
-    set_target_properties(Luau.Analyze.CLI PROPERTIES OUTPUT_NAME luau-analyze)
-    set_target_properties(Luau.Ast.CLI PROPERTIES OUTPUT_NAME luau-ast)
-endif ()
-
-
 include(Sources.cmake)
 
 target_include_directories(Luau.Common INTERFACE Common/include)

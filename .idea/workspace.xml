@@ -10,10 +10,7 @@
     <generated>
       <config projectName="Luau" targetName="Luau.Ast" />
       <config projectName="Luau" targetName="Luau.CodeGen" />
-      <config projectName="Luau" targetName="Luau.Ast.CLI" />
-      <config projectName="Luau" targetName="Luau.Analyze.CLI" />
       <config projectName="Luau" targetName="Serene.Compiler" />
-      <config projectName="Luau" targetName="Luau.Repl.CLI" />
       <config projectName="Luau" targetName="Luau.Common" />
       <config projectName="Luau" targetName="Luau.Analysis" />
       <config projectName="Luau" targetName="Luau.Compiler" />
@@ -26,36 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="009f77a6-c53f-47f7-8ce2-f661f7121d9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SereneCompiler/ByteCodeWriter.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SereneCompiler/ByteCodeWriter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Analyze.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Ast.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Coverage.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Coverage.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/FileUtils.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/FileUtils.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Flags.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Flags.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Profiler.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Profiler.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Repl.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Repl.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/ReplEntry.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Sources.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/Web.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/common.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLI/project.pros" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.h" beforeDir="false" afterPath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BYTECODE.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BYTECODE.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/sources.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serene_bytecode.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/serene_bytecode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,27 +65,12 @@
   }
 }</component>
   <component name="RunManager" selected="CMake Application.Serene.Compiler">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Luau.Analysis" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Analysis" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Luau.Analyze.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Analyze.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Analyze.CLI">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Luau.Ast" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Ast" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Luau.Ast.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Ast.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Ast.CLI">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -134,25 +90,22 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Luau.Repl.CLI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Luau.Repl.CLI" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Luau" RUN_TARGET_NAME="Luau.Repl.CLI">
+    <configuration name="Serene.Compiler" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Serene.Compiler" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Serene.Compiler" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Luau" TARGET_NAME="Serene.Compiler" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="CMake Application.Luau.Analysis" />
-      <item itemvalue="CMake Application.Luau.Analyze.CLI" />
       <item itemvalue="CMake Application.Luau.Ast" />
-      <item itemvalue="CMake Application.Luau.Ast.CLI" />
       <item itemvalue="CMake Application.Luau.CodeGen" />
       <item itemvalue="CMake Application.Luau.Common" />
       <item itemvalue="CMake Application.Luau.Compiler" />
-      <item itemvalue="CMake Application.Luau.Repl.CLI" />
       <item itemvalue="CMake Application.Serene.Compiler" />
     </list>
   </component>
@@ -168,7 +121,8 @@
       <workItem from="1659957979966" duration="2437000" />
       <workItem from="1660043392154" duration="3264000" />
       <workItem from="1660058226230" duration="4000" />
-      <workItem from="1660059106458" duration="4641000" />
+      <workItem from="1660059106458" duration="5266000" />
+      <workItem from="1660085295051" duration="688000" />
     </task>
     <servers />
   </component>
