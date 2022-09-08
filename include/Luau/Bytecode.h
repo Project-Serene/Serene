@@ -38,8 +38,7 @@
 // that Luau users can recompile bytecode from source on Luau version upgrades if necessary.
 
 // Bytecode opcode, part of the instruction header
-enum LuauOpcode
-{
+enum LuauOpcode {
     // NOP: noop
     LOP_NOP,
 
@@ -387,8 +386,7 @@ enum LuauOpcode
 #define LUAU_INSN_E(insn) (int32_t(insn) >> 8)
 
 // Bytecode tags, used internally for bytecode encoded as a string
-enum LuauBytecodeTag
-{
+enum LuauBytecodeTag {
     // Bytecode version; runtime supports [MIN, MAX], compiler emits TARGET by default but may emit a higher version when flags are enabled
     LBC_VERSION_MIN = 2,
     LBC_VERSION_MAX = 2,
@@ -404,8 +402,7 @@ enum LuauBytecodeTag
 };
 
 // Builtin function ids, used in LOP_FASTCALL
-enum LuauBuiltinFunction
-{
+enum LuauBuiltinFunction {
     LBF_NONE = 0,
 
     // assert()
@@ -496,8 +493,7 @@ enum LuauBuiltinFunction
 };
 
 // Capture type, used in LOP_CAPTURE
-enum LuauCaptureType
-{
+enum LuauCaptureType {
     LCT_VAL = 0,
     LCT_REF,
     LCT_UPVAL,

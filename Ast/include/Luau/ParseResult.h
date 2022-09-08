@@ -6,64 +6,59 @@
 #include "Luau/Lexer.h"
 #include "Luau/StringUtils.h"
 
-namespace Luau
-{
+namespace Luau {
 
-class AstStatBlock;
+    class AstStatBlock;
 
-class ParseError : public std::exception
-{
-public:
-    ParseError(const Location& location, const std::string& message);
+    class ParseError : public std::exception {
+    public:
+        ParseError(const Location &location, const std::string &message);
 
-    virtual const char* what() const throw();
+        virtual const char *what() const throw();
 
-    const Location& getLocation() const;
-    const std::string& getMessage() const;
+        const Location &getLocation() const;
 
-    static LUAU_NORETURN void raise(const Location& location, const char* format, ...) LUAU_PRINTF_ATTR(2, 3);
+        const std::string &getMessage() const;
 
-private:
-    Location location;
-    std::string message;
-};
+        static LUAU_NORETURN void raise(const Location &location, const char *format, ...) LUAU_PRINTF_ATTR(2, 3);
 
-class ParseErrors : public std::exception
-{
-public:
-    ParseErrors(std::vector<ParseError> errors);
+    private:
+        Location location;
+        std::string message;
+    };
 
-    virtual const char* what() const throw();
+    class ParseErrors : public std::exception {
+    public:
+        ParseErrors(std::vector<ParseError> errors);
 
-    const std::vector<ParseError>& getErrors() const;
+        virtual const char *what() const throw();
 
-private:
-    std::vector<ParseError> errors;
-    std::string message;
-};
+        const std::vector<ParseError> &getErrors() const;
 
-struct HotComment
-{
-    bool header;
-    Location location;
-    std::string content;
-};
+    private:
+        std::vector<ParseError> errors;
+        std::string message;
+    };
 
-struct Comment
-{
-    Lexeme::Type type; // Comment, BlockComment, or BrokenComment
-    Location location;
-};
+    struct HotComment {
+        bool header;
+        Location location;
+        std::string content;
+    };
 
-struct ParseResult
-{
-    AstStatBlock* root;
-    std::vector<HotComment> hotcomments;
-    std::vector<ParseError> errors;
+    struct Comment {
+        Lexeme::Type type; // Comment, BlockComment, or BrokenComment
+        Location location;
+    };
 
-    std::vector<Comment> commentLocations;
-};
+    struct ParseResult {
+        AstStatBlock *root;
+        std::vector<HotComment> hotcomments;
+        std::vector<ParseError> errors;
 
-static constexpr const char* kParseNameError = "%error-id%";
+        std::vector<Comment> commentLocations;
+    };
+
+    static constexpr const char *kParseNameError = "%error-id%";
 
 } // namespace Luau

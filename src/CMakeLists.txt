@@ -10,4 +10,4 @@ add_executable(Serene
 
         VM/
 
-        main.cpp )
+        main.cpp)

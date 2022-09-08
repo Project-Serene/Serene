@@ -9,16 +9,14 @@
 
 LUAU_FASTFLAGVARIABLE(LuauLazyAtoms, false)
 
-unsigned int luaS_hash(const char* str, size_t len)
-{
+unsigned int luaS_hash(const char *str, size_t len) {
     // Note that this hashing algorithm is replicated in BytecodeBuilder.cpp, BytecodeBuilder::getStringHash
     unsigned int a = 0, b = 0;
     unsigned int h = unsigned(len);
 
     // hash prefix in 12b chunks (using aligned reads) with ARX based hash (LuaJIT v2.1, lookup3)
     // note that we stop at length<32 to maintain compatibility with Lua 5.1
-    while (len >= 32)
-    {
+    while (len >= 32) {
 #define rol(x, s) ((x >> s) | (x << (32 - s)))
 #define mix(u, v, w) a ^= h, a -= rol(h, u), b ^= a, b -= rol(a, v), h ^= b, h -= rol(b, w)
 
@@ -39,24 +37,21 @@ unsigned int luaS_hash(const char* str, size_t len)
 
     // original Lua 5.1 hash for compatibility (exact match when len<32)
     for (size_t i = len; i > 0; --i)
-        h ^= (h << 5) + (h >> 2) + (uint8_t)str[i - 1];
+        h ^= (h << 5) + (h >> 2) + (uint8_t) str[i - 1];
 
     return h;
 }
 
-void luaS_resize(lua_State* L, int newsize)
-{
-    TString** newhash = luaM_newarray(L, newsize, TString*, 0);
-    stringtable* tb = &L->global->strt;
+void luaS_resize(lua_State *L, int newsize) {
+    TString **newhash = luaM_newarray(L, newsize, TString*, 0);
+    stringtable *tb = &L->global->strt;
     for (int i = 0; i < newsize; i++)
         newhash[i] = NULL;
     /* rehash */
-    for (int i = 0; i < tb->size; i++)
-    {
-        TString* p = tb->hash[i];
-        while (p)
-        {                            /* for each node in the list */
-            TString* next = p->next; /* save next */
+    for (int i = 0; i < tb->size; i++) {
+        TString *p = tb->hash[i];
+        while (p) {                            /* for each node in the list */
+            TString *next = p->next; /* save next */
             unsigned int h = p->hash;
             int h1 = lmod(h, newsize); /* new position */
             LUAU_ASSERT(cast_int(h % newsize) == lmod(h, newsize));
@@ -70,10 +65,9 @@ void luaS_resize(lua_State* L, int newsize)
     tb->hash = newhash;
 }
 
-static TString* newlstr(lua_State* L, const char* str, size_t l, unsigned int h)
-{
-    TString* ts;
-    stringtable* tb;
+static TString *newlstr(lua_State *L, const char *str, size_t l, unsigned int h) {
+    TString *ts;
+    stringtable *tb;
     if (l > MAXSSIZE)
         luaM_toobig(L);
     ts = luaM_newgco(L, TString, sizestring(l), L->activememcat);
@@ -95,30 +89,24 @@ static TString* newlstr(lua_State* L, const char* str, size_t l, unsigned int h)
     return ts;
 }
 
-static void linkstrbuf(lua_State* L, TString* ts)
-{
-    global_State* g = L->global;
+static void linkstrbuf(lua_State *L, TString *ts) {
+    global_State *g = L->global;
 
     ts->next = g->strbufgc;
     g->strbufgc = ts;
     ts->marked = luaC_white(g);
 }
 
-static void unlinkstrbuf(lua_State* L, TString* ts)
-{
-    global_State* g = L->global;
+static void unlinkstrbuf(lua_State *L, TString *ts) {
+    global_State *g = L->global;
 
-    TString** p = &g->strbufgc;
+    TString **p = &g->strbufgc;
 
-    while (TString* curr = *p)
-    {
-        if (curr == ts)
-        {
+    while (TString *curr = *p) {
+        if (curr == ts) {
             *p = curr->next;
             return;
-        }
-        else
-        {
+        } else {
             p = &curr->next;
         }
     }
@@ -126,12 +114,11 @@ static void unlinkstrbuf(lua_State* L, TString* ts)
     LUAU_ASSERT(!"failed to find string buffer");
 }
 
-TString* luaS_bufstart(lua_State* L, size_t size)
-{
+TString *luaS_bufstart(lua_State *L, size_t size) {
     if (size > MAXSSIZE)
         luaM_toobig(L);
 
-    TString* ts = luaM_newgco(L, TString, sizestring(size), L->activememcat);
+    TString *ts = luaM_newgco(L, TString, sizestring(size), L->activememcat);
 
     ts->tt = LUA_TSTRING;
     ts->memcat = L->activememcat;
@@ -142,17 +129,14 @@ TString* luaS_bufstart(lua_State* L, size_t size)
     return ts;
 }
 
-TString* luaS_buffinish(lua_State* L, TString* ts)
-{
+TString *luaS_buffinish(lua_State *L, TString *ts) {
     unsigned int h = luaS_hash(ts->data, ts->len);
-    stringtable* tb = &L->global->strt;
+    stringtable *tb = &L->global->strt;
     int bucket = lmod(h, tb->size);
 
     // search if we already have this string in the hash table
-    for (TString* el = tb->hash[bucket]; el != NULL; el = el->next)
-    {
-        if (el->len == ts->len && memcmp(el->data, ts->data, ts->len) == 0)
-        {
+    for (TString *el = tb->hash[bucket]; el != NULL; el = el->next) {
+        if (el->len == ts->len && memcmp(el->data, ts->data, ts->len) == 0) {
             // string may be dead
             if (isdead(L->global, obj2gco(el)))
                 changewhite(obj2gco(el));
@@ -167,7 +151,8 @@ TString* luaS_buffinish(lua_State* L, TString* ts)
     ts->data[ts->len] = '\0'; // ending 0
 
     // Complete string object
-    ts->atom = FFlag::LuauLazyAtoms ? ATOM_UNDEF : L->global->cb.useratom ? L->global->cb.useratom(ts->data, ts->len) : -1;
+    ts->atom = FFlag::LuauLazyAtoms ? ATOM_UNDEF : L->global->cb.useratom ? L->global->cb.useratom(ts->data, ts->len)
+                                                                          : -1;
     ts->next = tb->hash[bucket]; // chain new entry
     tb->hash[bucket] = ts;
 
@@ -178,13 +163,10 @@ TString* luaS_buffinish(lua_State* L, TString* ts)
     return ts;
 }
 
-TString* luaS_newlstr(lua_State* L, const char* str, size_t l)
-{
+TString *luaS_newlstr(lua_State *L, const char *str, size_t l) {
     unsigned int h = luaS_hash(str, l);
-    for (TString* el = L->global->strt.hash[lmod(h, L->global->strt.size)]; el != NULL; el = el->next)
-    {
-        if (el->len == l && (memcmp(str, getstr(el), l) == 0))
-        {
+    for (TString *el = L->global->strt.hash[lmod(h, L->global->strt.size)]; el != NULL; el = el->next) {
+        if (el->len == l && (memcmp(str, getstr(el), l) == 0)) {
             /* string may be dead */
             if (isdead(L->global, obj2gco(el)))
                 changewhite(obj2gco(el));
@@ -194,21 +176,16 @@ TString* luaS_newlstr(lua_State* L, const char* str, size_t l)
     return newlstr(L, str, l, h); /* not found */
 }
 
-static bool unlinkstr(lua_State* L, TString* ts)
-{
-    global_State* g = L->global;
+static bool unlinkstr(lua_State *L, TString *ts) {
+    global_State *g = L->global;
 
-    TString** p = &g->strt.hash[lmod(ts->hash, g->strt.size)];
+    TString **p = &g->strt.hash[lmod(ts->hash, g->strt.size)];
 
-    while (TString* curr = *p)
-    {
-        if (curr == ts)
-        {
+    while (TString *curr = *p) {
+        if (curr == ts) {
             *p = curr->next;
             return true;
-        }
-        else
-        {
+        } else {
             p = &curr->next;
         }
     }
@@ -216,8 +193,7 @@ static bool unlinkstr(lua_State* L, TString* ts)
     return false;
 }
 
-void luaS_free(lua_State* L, TString* ts, lua_Page* page)
-{
+void luaS_free(lua_State *L, TString *ts, lua_Page *page) {
     // Unchain from the string table
     if (!unlinkstr(L, ts))
         unlinkstrbuf(L, ts); // An unlikely scenario when we have a string buffer on our hands

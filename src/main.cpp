@@ -23,7 +23,7 @@ void initialize() {
     int result = luau_load(L, "MainFile", BYTECODE, BYTECODE_SIZE, 0);
 
     if (result == 0) {
-        lua_call(L,0,0);
+        lua_call(L, 0, 0);
         printf("Ran Lua Code...\n");
     } else {
         printf("Failed to load...\n");

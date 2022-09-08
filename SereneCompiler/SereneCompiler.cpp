@@ -292,6 +292,11 @@ static bool compileFile(const std::string &name, const std::string &output_file)
         return false;
     }
 }
+/*
+
+    CompileFile
+
+*/
 
 #if defined(_WIN32) || defined(__WIN32__)
 #    define  MYLIB_EXPORT extern "C" __declspec(dllexport)

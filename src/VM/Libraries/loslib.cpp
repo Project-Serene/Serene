@@ -8,24 +8,22 @@
 #define LUA_STRFTIMEOPTIONS "aAbBcdHIjmMpSUwWxXyYzZ%"
 
 #if defined(_WIN32)
-static tm* gmtime_r(const time_t* timep, tm* result)
-{
+
+static tm *gmtime_r(const time_t *timep, tm *result) {
     return gmtime_s(result, timep) == 0 ? result : NULL;
 }
 
-static tm* localtime_r(const time_t* timep, tm* result)
-{
+static tm *localtime_r(const time_t *timep, tm *result) {
     return localtime_s(result, timep) == 0 ? result : NULL;
 }
 
-static time_t timegm(struct tm* timep)
-{
+static time_t timegm(struct tm *timep) {
     return _mkgmtime(timep);
 }
+
 #endif
 
-static int os_clock(lua_State* L)
-{
+static int os_clock(lua_State *L) {
     lua_pushnumber(L, lua_clock());
     return 1;
 }
@@ -38,22 +36,19 @@ static int os_clock(lua_State* L)
 ** =======================================================
 */
 
-static void setfield(lua_State* L, const char* key, int value)
-{
+static void setfield(lua_State *L, const char *key, int value) {
     lua_pushinteger(L, value);
     lua_setfield(L, -2, key);
 }
 
-static void setboolfield(lua_State* L, const char* key, int value)
-{
+static void setboolfield(lua_State *L, const char *key, int value) {
     if (value < 0) /* undefined? */
         return;    /* does not set field */
     lua_pushboolean(L, value);
     lua_setfield(L, -2, key);
 }
 
-static int getboolfield(lua_State* L, const char* key)
-{
+static int getboolfield(lua_State *L, const char *key) {
     int res;
     lua_rawgetfield(L, -1, key);
     res = lua_isnil(L, -1) ? -1 : lua_toboolean(L, -1);
@@ -61,14 +56,12 @@ static int getboolfield(lua_State* L, const char* key)
     return res;
 }
 
-static int getfield(lua_State* L, const char* key, int d)
-{
+static int getfield(lua_State *L, const char *key, int d) {
     int res;
     lua_rawgetfield(L, -1, key);
     if (lua_isnumber(L, -1))
-        res = (int)lua_tointeger(L, -1);
-    else
-    {
+        res = (int) lua_tointeger(L, -1);
+    else {
         if (d < 0)
             luaL_error(L, "field '%s' missing in date table", key);
         res = d;
@@ -77,20 +70,16 @@ static int getfield(lua_State* L, const char* key, int d)
     return res;
 }
 
-static int os_date(lua_State* L)
-{
-    const char* s = luaL_optstring(L, 1, "%c");
-    time_t t = luaL_opt(L, (time_t)luaL_checknumber, 2, time(NULL));
+static int os_date(lua_State *L) {
+    const char *s = luaL_optstring(L, 1, "%c");
+    time_t t = luaL_opt(L, (time_t) luaL_checknumber, 2, time(NULL));
 
     struct tm tm;
-    struct tm* stm;
-    if (*s == '!')
-    { /* UTC? */
+    struct tm *stm;
+    if (*s == '!') { /* UTC? */
         stm = gmtime_r(&t, &tm);
         s++; /* skip `!' */
-    }
-    else
-    {
+    } else {
         // on Windows, localtime() fails with dates before epoch start so we disallow that
         stm = t < 0 ? NULL : localtime_r(&t, &tm);
     }
@@ -98,9 +87,7 @@ static int os_date(lua_State* L)
     if (stm == NULL) /* invalid date? */
     {
         lua_pushnil(L);
-    }
-    else if (strcmp(s, "*t") == 0)
-    {
+    } else if (strcmp(s, "*t") == 0) {
         lua_createtable(L, 0, 9); /* 9 = number of fields */
         setfield(L, "sec", stm->tm_sec);
         setfield(L, "min", stm->tm_min);
@@ -111,27 +98,20 @@ static int os_date(lua_State* L)
         setfield(L, "wday", stm->tm_wday + 1);
         setfield(L, "yday", stm->tm_yday + 1);
         setboolfield(L, "isdst", stm->tm_isdst);
-    }
-    else
-    {
+    } else {
         char cc[3];
         cc[0] = '%';
         cc[2] = '\0';
 
         luaL_Buffer b;
         luaL_buffinit(L, &b);
-        for (; *s; s++)
-        {
+        for (; *s; s++) {
             if (*s != '%' || *(s + 1) == '\0') /* no conversion specifier? */
             {
                 luaL_addchar(&b, *s);
-            }
-            else if (strchr(LUA_STRFTIMEOPTIONS, *(s + 1)) == 0)
-            {
+            } else if (strchr(LUA_STRFTIMEOPTIONS, *(s + 1)) == 0) {
                 luaL_argerror(L, 1, "invalid conversion specifier");
-            }
-            else
-            {
+            } else {
                 size_t reslen;
                 char buff[200]; /* should be big enough for any conversion result */
                 cc[1] = *(++s);
@@ -144,8 +124,7 @@ static int os_date(lua_State* L)
     return 1;
 }
 
-static int os_time(lua_State* L)
-{
+static int os_time(lua_State *L) {
 //    time_t t;
 //    if (lua_isnoneornil(L, 1)) /* called without args? */
 //        t = time(NULL);        /* get current time */
@@ -174,22 +153,20 @@ static int os_time(lua_State* L)
     return 1;
 }
 
-static int os_difftime(lua_State* L)
-{
-    lua_pushnumber(L, difftime((time_t)(luaL_checknumber(L, 1)), (time_t)(luaL_optnumber(L, 2, 0))));
+static int os_difftime(lua_State *L) {
+    lua_pushnumber(L, difftime((time_t) (luaL_checknumber(L, 1)), (time_t) (luaL_optnumber(L, 2, 0))));
     return 1;
 }
 
 static const luaL_Reg syslib[] = {
-    {"clock", os_clock},
-    {"date", os_date},
-    {"difftime", os_difftime},
-    {"time", os_time},
-    {NULL, NULL},
+        {"clock",    os_clock},
+        {"date",     os_date},
+        {"difftime", os_difftime},
+        {"time",     os_time},
+        {NULL, NULL},
 };
 
-int luaopen_os(lua_State* L)
-{
+int luaopen_os(lua_State *L) {
     luaL_register(L, LUA_OSLIBNAME, syslib);
     return 1;
 }

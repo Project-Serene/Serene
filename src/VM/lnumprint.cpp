@@ -25,31 +25,52 @@ static const int kPow10TableMax = 324;
 
 // clang-format off
 static const uint64_t kPow5Table[16] = {
-    0x8000000000000000, 0xa000000000000000, 0xc800000000000000, 0xfa00000000000000, 0x9c40000000000000, 0xc350000000000000,
-    0xf424000000000000, 0x9896800000000000, 0xbebc200000000000, 0xee6b280000000000, 0x9502f90000000000, 0xba43b74000000000,
-    0xe8d4a51000000000, 0x9184e72a00000000, 0xb5e620f480000000, 0xe35fa931a0000000,
+        0x8000000000000000, 0xa000000000000000, 0xc800000000000000, 0xfa00000000000000, 0x9c40000000000000,
+        0xc350000000000000,
+        0xf424000000000000, 0x9896800000000000, 0xbebc200000000000, 0xee6b280000000000, 0x9502f90000000000,
+        0xba43b74000000000,
+        0xe8d4a51000000000, 0x9184e72a00000000, 0xb5e620f480000000, 0xe35fa931a0000000,
 };
 static const uint64_t kPow10Table[(kPow10TableMax - kPow10TableMin + 1 + 15) / 16][3] = {
-    {0xff77b1fcbebcdc4f, 0x25e8e89c13bb0f7b, 0x333443443333443b}, {0x8dd01fad907ffc3b, 0xae3da7d97f6792e4, 0xbbb3ab3cb3ba3cbc},
-    {0x9d71ac8fada6c9b5, 0x6f773fc3603db4aa, 0x4ba4bc4bb4bb4bcc}, {0xaecc49914078536d, 0x58fae9f773886e19, 0x3ba3bc33b43b43bb},
-    {0xc21094364dfb5636, 0x985915fc12f542e5, 0x33b43b43a33b33cb}, {0xd77485cb25823ac7, 0x7d633293366b828c, 0x34b44c444343443c},
-    {0xef340a98172aace4, 0x86fb897116c87c35, 0x333343333343334b}, {0x84c8d4dfd2c63f3b, 0x29ecd9f40041e074, 0xccaccbbcbcbb4bbc},
-    {0x936b9fcebb25c995, 0xcab10dd900beec35, 0x3ab3ab3ab3bb3bbb}, {0xa3ab66580d5fdaf5, 0xc13e60d0d2e0ebbb, 0x4cc3dc4db4db4dbb},
-    {0xb5b5ada8aaff80b8, 0x0d819992132456bb, 0x33b33a34c33b34ab}, {0xc9bcff6034c13052, 0xfc89b393dd02f0b6, 0x33c33b44b43c34bc},
-    {0xdff9772470297ebd, 0x59787e2b93bc56f8, 0x43b444444443434c}, {0xf8a95fcf88747d94, 0x75a44c6397ce912b, 0x443334343443343b},
-    {0x8a08f0f8bf0f156b, 0x1b8e9ecb641b5900, 0xbbabab3aa3ab4ccc}, {0x993fe2c6d07b7fab, 0xe546a8038efe402a, 0x4cb4bc4db4db4bcc},
-    {0xaa242499697392d2, 0xdde50bd1d5d0b9ea, 0x3ba3ba3bb33b33bc}, {0xbce5086492111aea, 0x88f4bb1ca6bcf585, 0x44b44c44c44c43cb},
-    {0xd1b71758e219652b, 0xd3c36113404ea4a9, 0x44c44c44c444443b}, {0xe8d4a51000000000, 0x0000000000000000, 0x444444444444444c},
-    {0x813f3978f8940984, 0x4000000000000000, 0xcccccccccccccccc}, {0x8f7e32ce7bea5c6f, 0xe4820023a2000000, 0xbba3bc4cc4cc4ccc},
-    {0x9f4f2726179a2245, 0x01d762422c946591, 0x4aa3bb3aa3ba3bab}, {0xb0de65388cc8ada8, 0x3b25a55f43294bcc, 0x3ca33b33b44b43bc},
-    {0xc45d1df942711d9a, 0x3ba5d0bd324f8395, 0x44c44c34c44b44cb}, {0xda01ee641a708de9, 0xe80e6f4820cc9496, 0x33b33b343333333c},
-    {0xf209787bb47d6b84, 0xc0678c5dbd23a49b, 0x443444444443443b}, {0x865b86925b9bc5c2, 0x0b8a2392ba45a9b3, 0xdbccbcccb4cb3bbb},
-    {0x952ab45cfa97a0b2, 0xdd945a747bf26184, 0x3bc4bb4ab3ca3cbc}, {0xa59bc234db398c25, 0x43fab9837e699096, 0x3bb3ac3ab3bb33ac},
-    {0xb7dcbf5354e9bece, 0x0c11ed6d538aeb30, 0x33b43b43b34c34dc}, {0xcc20ce9bd35c78a5, 0x31ec038df7b441f5, 0x34c44c43c44b44cb},
-    {0xe2a0b5dc971f303a, 0x2e44ae64840fd61e, 0x333333333333333c}, {0xfb9b7cd9a4a7443c, 0x169840ef017da3b2, 0x433344443333344c},
-    {0x8bab8eefb6409c1a, 0x1ad089b6c2f7548f, 0xdcbdcc3cc4cc4bcb}, {0x9b10a4e5e9913128, 0xca7cf2b4191c8327, 0x3ab3cb3bc3bb4bbb},
-    {0xac2820d9623bf429, 0x546345fa9fbdcd45, 0x3bb3cc43c43c43cb}, {0xbf21e44003acdd2c, 0xe0470a63e6bd56c4, 0x44b34a43b44c44bc},
-    {0xd433179d9c8cb841, 0x5fa60692a46151ec, 0x43a33a33a333333c},
+        {0xff77b1fcbebcdc4f, 0x25e8e89c13bb0f7b, 0x333443443333443b},
+        {0x8dd01fad907ffc3b, 0xae3da7d97f6792e4, 0xbbb3ab3cb3ba3cbc},
+        {0x9d71ac8fada6c9b5, 0x6f773fc3603db4aa, 0x4ba4bc4bb4bb4bcc},
+        {0xaecc49914078536d, 0x58fae9f773886e19, 0x3ba3bc33b43b43bb},
+        {0xc21094364dfb5636, 0x985915fc12f542e5, 0x33b43b43a33b33cb},
+        {0xd77485cb25823ac7, 0x7d633293366b828c, 0x34b44c444343443c},
+        {0xef340a98172aace4, 0x86fb897116c87c35, 0x333343333343334b},
+        {0x84c8d4dfd2c63f3b, 0x29ecd9f40041e074, 0xccaccbbcbcbb4bbc},
+        {0x936b9fcebb25c995, 0xcab10dd900beec35, 0x3ab3ab3ab3bb3bbb},
+        {0xa3ab66580d5fdaf5, 0xc13e60d0d2e0ebbb, 0x4cc3dc4db4db4dbb},
+        {0xb5b5ada8aaff80b8, 0x0d819992132456bb, 0x33b33a34c33b34ab},
+        {0xc9bcff6034c13052, 0xfc89b393dd02f0b6, 0x33c33b44b43c34bc},
+        {0xdff9772470297ebd, 0x59787e2b93bc56f8, 0x43b444444443434c},
+        {0xf8a95fcf88747d94, 0x75a44c6397ce912b, 0x443334343443343b},
+        {0x8a08f0f8bf0f156b, 0x1b8e9ecb641b5900, 0xbbabab3aa3ab4ccc},
+        {0x993fe2c6d07b7fab, 0xe546a8038efe402a, 0x4cb4bc4db4db4bcc},
+        {0xaa242499697392d2, 0xdde50bd1d5d0b9ea, 0x3ba3ba3bb33b33bc},
+        {0xbce5086492111aea, 0x88f4bb1ca6bcf585, 0x44b44c44c44c43cb},
+        {0xd1b71758e219652b, 0xd3c36113404ea4a9, 0x44c44c44c444443b},
+        {0xe8d4a51000000000, 0x0000000000000000, 0x444444444444444c},
+        {0x813f3978f8940984, 0x4000000000000000, 0xcccccccccccccccc},
+        {0x8f7e32ce7bea5c6f, 0xe4820023a2000000, 0xbba3bc4cc4cc4ccc},
+        {0x9f4f2726179a2245, 0x01d762422c946591, 0x4aa3bb3aa3ba3bab},
+        {0xb0de65388cc8ada8, 0x3b25a55f43294bcc, 0x3ca33b33b44b43bc},
+        {0xc45d1df942711d9a, 0x3ba5d0bd324f8395, 0x44c44c34c44b44cb},
+        {0xda01ee641a708de9, 0xe80e6f4820cc9496, 0x33b33b343333333c},
+        {0xf209787bb47d6b84, 0xc0678c5dbd23a49b, 0x443444444443443b},
+        {0x865b86925b9bc5c2, 0x0b8a2392ba45a9b3, 0xdbccbcccb4cb3bbb},
+        {0x952ab45cfa97a0b2, 0xdd945a747bf26184, 0x3bc4bb4ab3ca3cbc},
+        {0xa59bc234db398c25, 0x43fab9837e699096, 0x3bb3ac3ab3bb33ac},
+        {0xb7dcbf5354e9bece, 0x0c11ed6d538aeb30, 0x33b43b43b34c34dc},
+        {0xcc20ce9bd35c78a5, 0x31ec038df7b441f5, 0x34c44c43c44b44cb},
+        {0xe2a0b5dc971f303a, 0x2e44ae64840fd61e, 0x333333333333333c},
+        {0xfb9b7cd9a4a7443c, 0x169840ef017da3b2, 0x433344443333344c},
+        {0x8bab8eefb6409c1a, 0x1ad089b6c2f7548f, 0xdcbdcc3cc4cc4bcb},
+        {0x9b10a4e5e9913128, 0xca7cf2b4191c8327, 0x3ab3cb3bc3bb4bbb},
+        {0xac2820d9623bf429, 0x546345fa9fbdcd45, 0x3bb3cc43c43c43cb},
+        {0xbf21e44003acdd2c, 0xe0470a63e6bd56c4, 0x44b34a43b44c44bc},
+        {0xd433179d9c8cb841, 0x5fa60692a46151ec, 0x43a33a33a333333c},
 };
 // clang-format on
 
@@ -57,8 +78,7 @@ static const char kDigitTable[] = "000102030405060708091011121314151617181920212
                                   "5051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899";
 
 // x*y => 128-bit product (lo+hi)
-inline uint64_t mul128(uint64_t x, uint64_t y, uint64_t* hi)
-{
+inline uint64_t mul128(uint64_t x, uint64_t y, uint64_t *hi) {
 #if defined(_MSC_VER) && defined(_M_X64)
     return _umul128(x, y, hi);
 #elif defined(__SIZEOF_INT128__)
@@ -80,14 +100,13 @@ inline uint64_t mul128(uint64_t x, uint64_t y, uint64_t* hi)
 }
 
 // (x*y)>>64 => 128-bit product (lo+hi)
-inline uint64_t mul192hi(uint64_t xhi, uint64_t xlo, uint64_t y, uint64_t* hi)
-{
+inline uint64_t mul192hi(uint64_t xhi, uint64_t xlo, uint64_t y, uint64_t *hi) {
     uint64_t z2;
     uint64_t z1 = mul128(xhi, y, &z2);
 
     uint64_t z1c;
     uint64_t z0 = mul128(xlo, y, &z1c);
-    (void)z0;
+    (void) z0;
 
     z1 += z1c;
     z2 += (z1 < z1c);
@@ -97,11 +116,10 @@ inline uint64_t mul192hi(uint64_t xhi, uint64_t xlo, uint64_t y, uint64_t* hi)
 }
 
 // 9.3. Rounding to odd (+ figure 8 + result 23)
-inline uint64_t roundodd(uint64_t ghi, uint64_t glo, uint64_t cp)
-{
+inline uint64_t roundodd(uint64_t ghi, uint64_t glo, uint64_t cp) {
     uint64_t xhi;
     uint64_t xlo = mul128(glo, cp, &xhi);
-    (void)xlo;
+    (void) xlo;
 
     uint64_t yhi;
     uint64_t ylo = mul128(ghi, cp, &yhi);
@@ -110,14 +128,12 @@ inline uint64_t roundodd(uint64_t ghi, uint64_t glo, uint64_t cp)
     return (yhi + (z < xhi)) | (z > 1);
 }
 
-struct Decimal
-{
+struct Decimal {
     uint64_t s;
     int k;
 };
 
-static Decimal schubfach(int exponent, uint64_t fraction)
-{
+static Decimal schubfach(int exponent, uint64_t fraction) {
     // Extract c & q such that c*2^q == |v|
     uint64_t c = fraction;
     int q = exponent - 1023 - 51;
@@ -154,7 +170,7 @@ static Decimal schubfach(int exponent, uint64_t fraction)
     // The 128-bit fraction is encoded as 128-bit baseline * power-of-5 * scale + offset
     LUAU_ASSERT(-k >= kPow10TableMin && -k <= kPow10TableMax);
     int gtoff = -k - kPow10TableMin;
-    const uint64_t* gt = kPow10Table[gtoff >> 4];
+    const uint64_t *gt = kPow10Table[gtoff >> 4];
 
     uint64_t ghi;
     uint64_t glo = mul192hi(gt[0], gt[1], kPow5Table[gtoff & 15], &ghi);
@@ -176,8 +192,7 @@ static Decimal schubfach(int exponent, uint64_t fraction)
     // Main algorithm; see figure 7 + figure 9
     uint64_t s = vb / 4;
 
-    if (s >= 10)
-    {
+    if (s >= 10) {
         uint64_t sp = s / 10;
 
         bool upin = vbl + out <= 40 * sp;
@@ -197,24 +212,18 @@ static Decimal schubfach(int exponent, uint64_t fraction)
     return {s + (uin != win ? win : rup), k};
 }
 
-static char* printspecial(char* buf, int sign, uint64_t fraction)
-{
-    if (fraction == 0)
-    {
+static char *printspecial(char *buf, int sign, uint64_t fraction) {
+    if (fraction == 0) {
         memcpy(buf, ("-inf") + (1 - sign), 4);
         return buf + 3 + sign;
-    }
-    else
-    {
+    } else {
         memcpy(buf, "nan", 4);
         return buf + 3;
     }
 }
 
-static char* printunsignedrev(char* end, uint64_t num)
-{
-    while (num >= 10000)
-    {
+static char *printunsignedrev(char *end, uint64_t num) {
+    while (num >= 10000) {
         unsigned int tail = unsigned(num % 10000);
 
         memcpy(end - 4, &kDigitTable[int(tail / 100) * 2], 2);
@@ -225,15 +234,13 @@ static char* printunsignedrev(char* end, uint64_t num)
 
     unsigned int rest = unsigned(num);
 
-    while (rest >= 10)
-    {
+    while (rest >= 10) {
         memcpy(end - 2, &kDigitTable[int(rest % 100) * 2], 2);
         rest /= 100;
         end -= 2;
     }
 
-    if (rest)
-    {
+    if (rest) {
         end[-1] = '0' + int(rest);
         end -= 1;
     }
@@ -241,15 +248,13 @@ static char* printunsignedrev(char* end, uint64_t num)
     return end;
 }
 
-static char* printexp(char* buf, int num)
-{
+static char *printexp(char *buf, int num) {
     *buf++ = 'e';
     *buf++ = num < 0 ? '-' : '+';
 
     int v = num < 0 ? -num : num;
 
-    if (v >= 100)
-    {
+    if (v >= 100) {
         *buf++ = '0' + (v / 100);
         v %= 100;
     }
@@ -258,8 +263,7 @@ static char* printexp(char* buf, int num)
     return buf + 2;
 }
 
-inline char* trimzero(char* end)
-{
+inline char *trimzero(char *end) {
     while (end[-1] == '0')
         end--;
 
@@ -270,11 +274,9 @@ inline char* trimzero(char* end)
 #define fastmemcpy(dst, src, size, sizefast) check_exp((size) <= sizefast, memcpy(dst, src, sizefast))
 #define fastmemset(dst, val, size, sizefast) check_exp((size) <= sizefast, memset(dst, val, sizefast))
 
-char* luai_num2str(char* buf, double n)
-{
+char *luai_num2str(char *buf, double n) {
     // IEEE-754
-    union
-    {
+    union {
         double v;
         uint64_t bits;
     } v = {n};
@@ -291,8 +293,7 @@ char* luai_num2str(char* buf, double n)
     buf += sign;
 
     // zero
-    if (exponent == 0 && fraction == 0)
-    {
+    if (exponent == 0 && fraction == 0) {
         buf[0] = '0';
         return buf + 1;
     }
@@ -303,8 +304,9 @@ char* luai_num2str(char* buf, double n)
 
     // print the decimal to a temporary buffer; we'll need to insert the decimal point and figure out the format
     char decbuf[40];
-    char* decend = decbuf + 20; // significand needs at most 17 digits; the rest of the buffer may be copied using fixed length memcpy
-    char* dec = printunsignedrev(decend, d.s);
+    char *decend = decbuf +
+                   20; // significand needs at most 17 digits; the rest of the buffer may be copied using fixed length memcpy
+    char *dec = printunsignedrev(decend, d.s);
 
     int declen = int(decend - dec);
     LUAU_ASSERT(declen <= 17);
@@ -312,11 +314,9 @@ char* luai_num2str(char* buf, double n)
     int dot = declen + d.k;
 
     // the limits are somewhat arbitrary but changing them may require changing fastmemset/fastmemcpy sizes below
-    if (dot >= -5 && dot <= 21)
-    {
+    if (dot >= -5 && dot <= 21) {
         // fixed point format
-        if (dot <= 0)
-        {
+        if (dot <= 0) {
             buf[0] = '0';
             buf[1] = '.';
 
@@ -324,16 +324,12 @@ char* luai_num2str(char* buf, double n)
             fastmemcpy(buf + 2 + (-dot), dec, declen, 17);
 
             return trimzero(buf + 2 + (-dot) + declen);
-        }
-        else if (dot == declen)
-        {
+        } else if (dot == declen) {
             // no dot
             fastmemcpy(buf, dec, dot, 17);
 
             return buf + dot;
-        }
-        else if (dot < declen)
-        {
+        } else if (dot < declen) {
             // dot in the middle
             fastmemcpy(buf, dec, dot, 16);
 
@@ -342,24 +338,20 @@ char* luai_num2str(char* buf, double n)
             fastmemcpy(buf + dot + 1, dec + dot, declen - dot, 16);
 
             return trimzero(buf + declen + 1);
-        }
-        else
-        {
+        } else {
             // no dot, zero padding
             fastmemcpy(buf, dec, declen, 17);
             fastmemset(buf + declen, '0', dot - declen, 8);
 
             return buf + dot;
         }
-    }
-    else
-    {
+    } else {
         // scientific format
         buf[0] = dec[0];
         buf[1] = '.';
         fastmemcpy(buf + 2, dec + 1, declen - 1, 16);
 
-        char* exp = trimzero(buf + declen + 1);
+        char *exp = trimzero(buf + declen + 1);
 
         return printexp(exp, dot - 1);
     }

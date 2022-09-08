@@ -9,7 +9,9 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+
 #include <windows.h>
+
 #endif
 
 #ifdef __APPLE__
@@ -19,8 +21,7 @@
 
 #include <time.h>
 
-static double clock_period()
-{
+static double clock_period() {
 #if defined(_WIN32)
     LARGE_INTEGER result = {};
     QueryPerformanceFrequency(&result);
@@ -36,8 +37,7 @@ static double clock_period()
 #endif
 }
 
-static double clock_timestamp()
-{
+static double clock_timestamp() {
 #if defined(_WIN32)
     LARGE_INTEGER result = {};
     QueryPerformanceCounter(&result);
@@ -53,8 +53,7 @@ static double clock_timestamp()
 #endif
 }
 
-double lua_clock()
-{
+double lua_clock() {
     static double period = clock_period();
 
     return clock_timestamp() * period;

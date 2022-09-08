@@ -41,11 +41,13 @@
 #ifdef __cplusplus
 extern "C" {
 namespace pros {
-namespace c {
+    namespace c {
 #endif
-uint8_t competition_get_status(void);
+
+        uint8_t competition_get_status(void);
+
 #ifdef __cplusplus
-}
+    }
 }
 }
 #endif
@@ -61,29 +63,31 @@ extern "C" {
 namespace pros {
 #endif
 
-typedef enum { E_CONTROLLER_MASTER = 0, E_CONTROLLER_PARTNER } controller_id_e_t;
+    typedef enum {
+        E_CONTROLLER_MASTER = 0, E_CONTROLLER_PARTNER
+    } controller_id_e_t;
 
-typedef enum {
-	E_CONTROLLER_ANALOG_LEFT_X = 0,
-	E_CONTROLLER_ANALOG_LEFT_Y,
-	E_CONTROLLER_ANALOG_RIGHT_X,
-	E_CONTROLLER_ANALOG_RIGHT_Y
-} controller_analog_e_t;
+    typedef enum {
+        E_CONTROLLER_ANALOG_LEFT_X = 0,
+        E_CONTROLLER_ANALOG_LEFT_Y,
+        E_CONTROLLER_ANALOG_RIGHT_X,
+        E_CONTROLLER_ANALOG_RIGHT_Y
+    } controller_analog_e_t;
 
-typedef enum {
-	E_CONTROLLER_DIGITAL_L1 = 6,
-	E_CONTROLLER_DIGITAL_L2,
-	E_CONTROLLER_DIGITAL_R1,
-	E_CONTROLLER_DIGITAL_R2,
-	E_CONTROLLER_DIGITAL_UP,
-	E_CONTROLLER_DIGITAL_DOWN,
-	E_CONTROLLER_DIGITAL_LEFT,
-	E_CONTROLLER_DIGITAL_RIGHT,
-	E_CONTROLLER_DIGITAL_X,
-	E_CONTROLLER_DIGITAL_B,
-	E_CONTROLLER_DIGITAL_Y,
-	E_CONTROLLER_DIGITAL_A
-} controller_digital_e_t;
+    typedef enum {
+        E_CONTROLLER_DIGITAL_L1 = 6,
+        E_CONTROLLER_DIGITAL_L2,
+        E_CONTROLLER_DIGITAL_R1,
+        E_CONTROLLER_DIGITAL_R2,
+        E_CONTROLLER_DIGITAL_UP,
+        E_CONTROLLER_DIGITAL_DOWN,
+        E_CONTROLLER_DIGITAL_LEFT,
+        E_CONTROLLER_DIGITAL_RIGHT,
+        E_CONTROLLER_DIGITAL_X,
+        E_CONTROLLER_DIGITAL_B,
+        E_CONTROLLER_DIGITAL_Y,
+        E_CONTROLLER_DIGITAL_A
+    } controller_digital_e_t;
 
 #ifdef PROS_USE_SIMPLE_NAMES
 #ifdef __cplusplus
@@ -135,24 +139,24 @@ Returns error (in the function/scope it's in) if the controller
 failed to connect or an invalid id is given.
 */
 #define CONTROLLER_PORT_MUTEX_TAKE(id, port) \
-	switch (id) {							\
-		case E_CONTROLLER_MASTER:			\
-			port = V5_PORT_CONTROLLER_1;	\
-			break;							\
-		case E_CONTROLLER_PARTNER:			\
-			port = V5_PORT_CONTROLLER_2;	\
-			break;							\
-		default:							\
-			errno = EINVAL;					\
-			return PROS_ERR;				\
-	}										\
-	if (!internal_port_mutex_take(port)) {	\
-		errno = EACCES;						\
-		return PROS_ERR;					\
-	}										\
+    switch (id) {                            \
+        case E_CONTROLLER_MASTER:            \
+            port = V5_PORT_CONTROLLER_1;    \
+            break;                            \
+        case E_CONTROLLER_PARTNER:            \
+            port = V5_PORT_CONTROLLER_2;    \
+            break;                            \
+        default:                            \
+            errno = EINVAL;                    \
+            return PROS_ERR;                \
+    }                                        \
+    if (!internal_port_mutex_take(port)) {    \
+        errno = EACCES;                        \
+        return PROS_ERR;                    \
+    }                                        \
 
 #ifdef __cplusplus
-namespace c {
+    namespace c {
 #endif
 
 /**
@@ -170,7 +174,7 @@ namespace c {
  *
  * \return 1 if the controller is connected, 0 otherwise
  */
-int32_t controller_is_connected(controller_id_e_t id);
+        int32_t controller_is_connected(controller_id_e_t id);
 
 /**
  * Gets the value of an analog channel (joystick) on a controller.
@@ -192,7 +196,7 @@ int32_t controller_is_connected(controller_id_e_t id);
  * \return The current reading of the analog channel: [-127, 127].
  * If the controller was not connected, then 0 is returned
  */
-int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channel);
+        int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channel);
 
 /**
  * Gets the battery capacity of the given controller.
@@ -209,7 +213,7 @@ int32_t controller_get_analog(controller_id_e_t id, controller_analog_e_t channe
  *
  * \return The controller's battery capacity
  */
-int32_t controller_get_battery_capacity(controller_id_e_t id);
+        int32_t controller_get_battery_capacity(controller_id_e_t id);
 
 /**
  * Gets the battery level of the given controller.
@@ -226,7 +230,7 @@ int32_t controller_get_battery_capacity(controller_id_e_t id);
  *
  * \return The controller's battery level
  */
-int32_t controller_get_battery_level(controller_id_e_t id);
+        int32_t controller_get_battery_level(controller_id_e_t id);
 
 /**
  * Checks if a digital channel (button) on the controller is currently pressed.
@@ -247,7 +251,7 @@ int32_t controller_get_battery_level(controller_id_e_t id);
  * \return 1 if the button on the controller is pressed.
  * If the controller was not connected, then 0 is returned
  */
-int32_t controller_get_digital(controller_id_e_t id, controller_digital_e_t button);
+        int32_t controller_get_digital(controller_id_e_t id, controller_digital_e_t button);
 
 /**
  * Returns a rising-edge case for a controller button press.
@@ -276,7 +280,7 @@ int32_t controller_get_digital(controller_id_e_t id, controller_digital_e_t butt
  * \return 1 if the button on the controller is pressed and had not been pressed
  * the last time this function was called, 0 otherwise.
  */
-int32_t controller_get_digital_new_press(controller_id_e_t id, controller_digital_e_t button);
+        int32_t controller_get_digital_new_press(controller_id_e_t id, controller_digital_e_t button);
 
 /**
  * Sets text to the controller LCD screen.
@@ -305,7 +309,7 @@ int32_t controller_get_digital_new_press(controller_id_e_t id, controller_digita
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t controller_print(controller_id_e_t id, uint8_t line, uint8_t col, const char* fmt, ...);
+        int32_t controller_print(controller_id_e_t id, uint8_t line, uint8_t col, const char *fmt, ...);
 
 /**
  * Sets text to the controller LCD screen.
@@ -332,7 +336,7 @@ int32_t controller_print(controller_id_e_t id, uint8_t line, uint8_t col, const 
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t controller_set_text(controller_id_e_t id, uint8_t line, uint8_t col, const char* str);
+        int32_t controller_set_text(controller_id_e_t id, uint8_t line, uint8_t col, const char *str);
 
 /**
  * Clears an individual line of the controller screen.
@@ -355,7 +359,7 @@ int32_t controller_set_text(controller_id_e_t id, uint8_t line, uint8_t col, con
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t controller_clear_line(controller_id_e_t id, uint8_t line);
+        int32_t controller_clear_line(controller_id_e_t id, uint8_t line);
 
 /**
  * Clears all of the lines on the controller screen.
@@ -377,7 +381,7 @@ int32_t controller_clear_line(controller_id_e_t id, uint8_t line);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t controller_clear(controller_id_e_t id);
+        int32_t controller_clear(controller_id_e_t id);
 
 /**
  * Rumble the controller.
@@ -402,7 +406,7 @@ int32_t controller_clear(controller_id_e_t id);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t controller_rumble(controller_id_e_t id, const char* rumble_pattern);
+        int32_t controller_rumble(controller_id_e_t id, const char *rumble_pattern);
 
 /**
  * Gets the current voltage of the battery, as reported by VEXos.
@@ -413,7 +417,7 @@ int32_t controller_rumble(controller_id_e_t id, const char* rumble_pattern);
  *
  * \return The current voltage of the battery
  */
-int32_t battery_get_voltage(void);
+        int32_t battery_get_voltage(void);
 
 /**
  * Gets the current current of the battery, as reported by VEXos.
@@ -424,7 +428,7 @@ int32_t battery_get_voltage(void);
  *
  * \return The current current of the battery
  */
-int32_t battery_get_current(void);
+        int32_t battery_get_current(void);
 
 /**
  * Gets the current temperature of the battery, as reported by VEXos.
@@ -435,7 +439,7 @@ int32_t battery_get_current(void);
  *
  * \return The current temperature of the battery
  */
-double battery_get_temperature(void);
+        double battery_get_temperature(void);
 
 /**
  * Gets the current capacity of the battery, as reported by VEXos.
@@ -446,17 +450,17 @@ double battery_get_temperature(void);
  *
  * \return The current capacity of the battery
  */
-double battery_get_capacity(void);
+        double battery_get_capacity(void);
 
 /**
  * Checks if the SD card is installed.
  *
  * \return 1 if the SD card is installed, 0 otherwise
  */
-int32_t usd_is_installed(void);
+        int32_t usd_is_installed(void);
 
 #ifdef __cplusplus
-}
+    }
 }
 }
 #endif

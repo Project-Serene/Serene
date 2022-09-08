@@ -21,29 +21,21 @@
 #endif
 
 
+namespace Luau {
 
+    using AssertHandler = int (*)(const char *expression, const char *file, int line, const char *function);
 
+    inline AssertHandler &assertHandler() {
+        static AssertHandler handler = nullptr;
+        return handler;
+    }
 
+    inline int assertCallHandler(const char *expression, const char *file, int line, const char *function) {
+        if (AssertHandler handler = assertHandler())
+            return handler(expression, file, line, function);
 
-
-namespace Luau
-{
-
-using AssertHandler = int (*)(const char* expression, const char* file, int line, const char* function);
-
-inline AssertHandler& assertHandler()
-{
-    static AssertHandler handler = nullptr;
-    return handler;
-}
-
-inline int assertCallHandler(const char* expression, const char* file, int line, const char* function)
-{
-    if (AssertHandler handler = assertHandler())
-        return handler(expression, file, line, function);
-
-    return 1;
-}
+        return 1;
+    }
 
 } // namespace Luau
 
@@ -54,39 +46,32 @@ inline int assertCallHandler(const char* expression, const char* file, int line,
 #define LUAU_ASSERT(expr) (void)sizeof(!!(expr))
 #endif
 
-namespace Luau
-{
+namespace Luau {
 
-template<typename T>
-struct FValue
-{
-    static FValue* list;
+    template<typename T>
+    struct FValue {
+        static FValue *list;
 
-    T value;
-    bool dynamic;
-    const char* name;
-    FValue* next;
+        T value;
+        bool dynamic;
+        const char *name;
+        FValue *next;
 
-    FValue(const char* name, T def, bool dynamic, void (*reg)(const char*, T*, bool) = nullptr)
-        : value(def)
-        , dynamic(dynamic)
-        , name(name)
-        , next(list)
-    {
-        list = this;
+        FValue(const char *name, T def, bool dynamic, void (*reg)(const char *, T *, bool) = nullptr)
+                : value(def), dynamic(dynamic), name(name), next(list) {
+            list = this;
 
-        if (reg)
-            reg(name, &value, dynamic);
-    }
+            if (reg)
+                reg(name, &value, dynamic);
+        }
 
-    operator T() const
-    {
-        return value;
-    }
-};
+        operator T() const {
+            return value;
+        }
+    };
 
-template<typename T>
-FValue<T>* FValue<T>::list = nullptr;
+    template<typename T>
+    FValue<T> *FValue<T>::list = nullptr;
 
 } // namespace Luau
 

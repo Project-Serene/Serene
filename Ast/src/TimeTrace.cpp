@@ -15,7 +15,9 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+
 #include <Windows.h>
+
 #endif
 
 #ifdef __APPLE__
@@ -26,60 +28,54 @@
 #include <time.h>
 
 LUAU_FASTFLAGVARIABLE(DebugLuauTimeTracing, false)
-namespace Luau
-{
-namespace TimeTrace
-{
-static double getClockPeriod()
-{
+namespace Luau {
+    namespace TimeTrace {
+        static double getClockPeriod() {
 #if defined(_WIN32)
-    LARGE_INTEGER result = {};
-    QueryPerformanceFrequency(&result);
-    return 1.0 / double(result.QuadPart);
+            LARGE_INTEGER result = {};
+            QueryPerformanceFrequency(&result);
+            return 1.0 / double(result.QuadPart);
 #elif defined(__APPLE__)
-    mach_timebase_info_data_t result = {};
-    mach_timebase_info(&result);
-    return double(result.numer) / double(result.denom) * 1e-9;
+            mach_timebase_info_data_t result = {};
+            mach_timebase_info(&result);
+            return double(result.numer) / double(result.denom) * 1e-9;
 #elif defined(__linux__)
-    return 1e-9;
+            return 1e-9;
 #else
-    return 1.0 / double(CLOCKS_PER_SEC);
+            return 1.0 / double(CLOCKS_PER_SEC);
 #endif
-}
+        }
 
-static double getClockTimestamp()
-{
+        static double getClockTimestamp() {
 #if defined(_WIN32)
-    LARGE_INTEGER result = {};
-    QueryPerformanceCounter(&result);
-    return double(result.QuadPart);
+            LARGE_INTEGER result = {};
+            QueryPerformanceCounter(&result);
+            return double(result.QuadPart);
 #elif defined(__APPLE__)
-    return double(mach_absolute_time());
+            return double(mach_absolute_time());
 #elif defined(__linux__)
-    timespec now;
-    clock_gettime(CLOCK_MONOTONIC, &now);
-    return now.tv_sec * 1e9 + now.tv_nsec;
+            timespec now;
+            clock_gettime(CLOCK_MONOTONIC, &now);
+            return now.tv_sec * 1e9 + now.tv_nsec;
 #else
-    return double(clock());
+            return double(clock());
 #endif
-}
+        }
 
-double getClock()
-{
-    static double period = getClockPeriod();
-    static double start = getClockTimestamp();
+        double getClock() {
+            static double period = getClockPeriod();
+            static double start = getClockTimestamp();
 
-    return (getClockTimestamp() - start) * period;
-}
+            return (getClockTimestamp() - start) * period;
+        }
 
-uint32_t getClockMicroseconds()
-{
-    static double period = getClockPeriod() * 1e6;
-    static double start = getClockTimestamp();
+        uint32_t getClockMicroseconds() {
+            static double period = getClockPeriod() * 1e6;
+            static double start = getClockTimestamp();
 
-    return uint32_t((getClockTimestamp() - start) * period);
-}
-} // namespace TimeTrace
+            return uint32_t((getClockTimestamp() - start) * period);
+        }
+    } // namespace TimeTrace
 } // namespace Luau
 
 #if defined(LUAU_ENABLE_TIME_TRACE)

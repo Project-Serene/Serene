@@ -25,25 +25,25 @@
 #ifdef __cplusplus
 extern "C" {
 namespace pros {
-namespace c {
+    namespace c {
 #endif
 
-typedef struct __attribute__((__packed__)) gps_status_s {
-	double x;      ///< X Position (meters)
-	double y;      ///< Y Position (meters)
-	double pitch;  ///< Percieved Pitch based on GPS + IMU
-	double roll;   ///< Percieved Roll based on GPS + IMU
-	double yaw;    ///< Percieved Yaw based on GPS + IMU
-} gps_status_s_t;
+        typedef struct __attribute__((__packed__)) gps_status_s {
+            double x;      ///< X Position (meters)
+            double y;      ///< Y Position (meters)
+            double pitch;  ///< Percieved Pitch based on GPS + IMU
+            double roll;   ///< Percieved Roll based on GPS + IMU
+            double yaw;    ///< Percieved Yaw based on GPS + IMU
+        } gps_status_s_t;
 
-struct gps_raw_s {
-	double x;  ///< Percieved Pitch based on GPS + IMU
-	double y;  ///< Percieved Roll based on GPS + IMU
-	double z;  ///< Percieved Yaw based on GPS + IMU
-};
+        struct gps_raw_s {
+            double x;  ///< Percieved Pitch based on GPS + IMU
+            double y;  ///< Percieved Roll based on GPS + IMU
+            double z;  ///< Percieved Yaw based on GPS + IMU
+        };
 
-typedef struct gps_raw_s gps_accel_s_t;
-typedef struct gps_raw_s gps_gyro_s_t;
+        typedef struct gps_raw_s gps_accel_s_t;
+        typedef struct gps_raw_s gps_gyro_s_t;
 
 /**
  * Set the GPS's offset relative to the center of turning in meters,
@@ -70,7 +70,8 @@ typedef struct gps_raw_s gps_gyro_s_t;
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_initialize_full(uint8_t port, double xInitial, double yInitial, double headingInitial, double xOffset,
+        int32_t
+        gps_initialize_full(uint8_t port, double xInitial, double yInitial, double headingInitial, double xOffset,
                             double yOffset);
 
 /**
@@ -91,7 +92,7 @@ int32_t gps_initialize_full(uint8_t port, double xInitial, double yInitial, doub
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_set_offset(uint8_t port, double xOffset, double yOffset);
+        int32_t gps_set_offset(uint8_t port, double xOffset, double yOffset);
 
 /**
  * Get the GPS's location relative to the center of turning/origin in meters.
@@ -111,7 +112,7 @@ int32_t gps_set_offset(uint8_t port, double xOffset, double yOffset);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_get_offset(uint8_t port, double* xOffset, double* yOffset);
+        int32_t gps_get_offset(uint8_t port, double *xOffset, double *yOffset);
 
 /**
  * Sets the robot's location relative to the center of the field in meters.
@@ -133,7 +134,7 @@ int32_t gps_get_offset(uint8_t port, double* xOffset, double* yOffset);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_set_position(uint8_t port, double xInitial, double yInitial, double headingInitial);
+        int32_t gps_set_position(uint8_t port, double xInitial, double yInitial, double headingInitial);
 
 /**
  * Set the GPS sensor's data rate in milliseconds, only applies to IMU on GPS.
@@ -151,7 +152,7 @@ int32_t gps_set_position(uint8_t port, double xInitial, double yInitial, double 
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_set_data_rate(uint8_t port, uint32_t rate);
+        int32_t gps_set_data_rate(uint8_t port, uint32_t rate);
 
 /**
  * Get the possible RMS (Root Mean Squared) error in meters for GPS position.
@@ -168,7 +169,7 @@ int32_t gps_set_data_rate(uint8_t port, uint32_t rate);
  * \return Possible RMS (Root Mean Squared) error in meters for GPS position.
  * If the operation failed, returns PROS_ERR_F and errno is set.
  */
-double gps_get_error(uint8_t port);
+        double gps_get_error(uint8_t port);
 
 /**
  * Gets the position and roll, yaw, and pitch of the GPS.
@@ -186,7 +187,7 @@ double gps_get_error(uint8_t port);
  * If the operation failed, all the structure's members are filled with
  * PROS_ERR_F and errno is set.
  */
-gps_status_s_t gps_get_status(uint8_t port);
+        gps_status_s_t gps_get_status(uint8_t port);
 
 /**
  * Get the heading in [0,360) degree values.
@@ -203,7 +204,7 @@ gps_status_s_t gps_get_status(uint8_t port);
  * \return The heading in [0,360) degree values. If the operation failed,
  * returns PROS_ERR_F and errno is set.
  */
-double gps_get_heading(uint8_t port);
+        double gps_get_heading(uint8_t port);
 
 /**
  * Get the heading in the max double value and min double value scale.
@@ -220,7 +221,7 @@ double gps_get_heading(uint8_t port);
  * \return The heading in [DOUBLE_MIN, DOUBLE_MAX] values. If the operation
  * fails, returns PROS_ERR_F and errno is set.
  */
-double gps_get_heading_raw(uint8_t port);
+        double gps_get_heading_raw(uint8_t port);
 
 /**
  * Gets the GPS sensor's elapsed rotation value
@@ -236,7 +237,7 @@ double gps_get_heading_raw(uint8_t port);
  * \return The elased heading in degrees. If the operation fails, returns
  * PROS_ERR_F and errno is set.
  */
-double gps_get_rotation(uint8_t port);
+        double gps_get_rotation(uint8_t port);
 
 /**
  * Set the GPS sensor's rotation value to target value
@@ -254,7 +255,7 @@ double gps_get_rotation(uint8_t port);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_set_rotation(uint8_t port, double target);
+        int32_t gps_set_rotation(uint8_t port, double target);
 
 /**
  * Tare the GPS sensor's rotation value
@@ -270,7 +271,7 @@ int32_t gps_set_rotation(uint8_t port, double target);
  * \return 1 if the operation was successful or PROS_ERR if the operation
  * failed, setting errno.
  */
-int32_t gps_tare_rotation(uint8_t port);
+        int32_t gps_tare_rotation(uint8_t port);
 
 /**
  * Get the GPS's raw gyroscope values
@@ -286,7 +287,7 @@ int32_t gps_tare_rotation(uint8_t port);
  * \return The raw gyroscope values. If the operation failed, all the
  * structure's members are filled with PROS_ERR_F and errno is set.
  */
-gps_gyro_s_t gps_get_gyro_rate(uint8_t port);
+        gps_gyro_s_t gps_get_gyro_rate(uint8_t port);
 
 /**
  * Get the GPS's raw accelerometer values
@@ -302,10 +303,10 @@ gps_gyro_s_t gps_get_gyro_rate(uint8_t port);
  * \return The raw accelerometer values. If the operation failed, all the
  * structure's members are filled with PROS_ERR_F and errno is set.
  */
-gps_accel_s_t gps_get_accel(uint8_t port);
+        gps_accel_s_t gps_get_accel(uint8_t port);
 
 #ifdef __cplusplus
-}
+    }
 }
 }
 #endif

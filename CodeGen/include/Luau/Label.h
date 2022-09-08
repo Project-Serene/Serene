@@ -3,16 +3,13 @@
 
 #include <stdint.h>
 
-namespace Luau
-{
-namespace CodeGen
-{
+namespace Luau {
+    namespace CodeGen {
 
-struct Label
-{
-    uint32_t id = 0;
-    uint32_t location = ~0u;
-};
+        struct Label {
+            uint32_t id = 0;
+            uint32_t location = ~0u;
+        };
 
-} // namespace CodeGen
+    } // namespace CodeGen
 } // namespace Luau

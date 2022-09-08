@@ -132,17 +132,30 @@
 
 #define luaC_init(L, o, tt) luaC_initobj(L, cast_to(GCObject*, (o)), tt)
 
-LUAI_FUNC void luaC_freeall(lua_State* L);
-LUAI_FUNC size_t luaC_step(lua_State* L, bool assist);
-LUAI_FUNC void luaC_fullgc(lua_State* L);
-LUAI_FUNC void luaC_initobj(lua_State* L, GCObject* o, uint8_t tt);
-LUAI_FUNC void luaC_initupval(lua_State* L, UpVal* uv);
-LUAI_FUNC void luaC_barrierupval(lua_State* L, GCObject* v);
-LUAI_FUNC void luaC_barrierf(lua_State* L, GCObject* o, GCObject* v);
-LUAI_FUNC void luaC_barriertable(lua_State* L, Table* t, GCObject* v);
-LUAI_FUNC void luaC_barrierback(lua_State* L, Table* t);
-LUAI_FUNC void luaC_validate(lua_State* L);
-LUAI_FUNC void luaC_dump(lua_State* L, void* file, const char* (*categoryName)(lua_State* L, uint8_t memcat));
-LUAI_FUNC int64_t luaC_allocationrate(lua_State* L);
-LUAI_FUNC void luaC_wakethread(lua_State* L);
-LUAI_FUNC const char* luaC_statename(int state);
+LUAI_FUNC void luaC_freeall(lua_State *L);
+
+LUAI_FUNC size_t luaC_step(lua_State *L, bool assist);
+
+LUAI_FUNC void luaC_fullgc(lua_State *L);
+
+LUAI_FUNC void luaC_initobj(lua_State *L, GCObject *o, uint8_t tt);
+
+LUAI_FUNC void luaC_initupval(lua_State *L, UpVal *uv);
+
+LUAI_FUNC void luaC_barrierupval(lua_State *L, GCObject *v);
+
+LUAI_FUNC void luaC_barrierf(lua_State *L, GCObject *o, GCObject *v);
+
+LUAI_FUNC void luaC_barriertable(lua_State *L, Table *t, GCObject *v);
+
+LUAI_FUNC void luaC_barrierback(lua_State *L, Table *t);
+
+LUAI_FUNC void luaC_validate(lua_State *L);
+
+LUAI_FUNC void luaC_dump(lua_State *L, void *file, const char *(*categoryName)(lua_State *L, uint8_t memcat));
+
+LUAI_FUNC int64_t luaC_allocationrate(lua_State *L);
+
+LUAI_FUNC void luaC_wakethread(lua_State *L);
+
+LUAI_FUNC const char *luaC_statename(int state);

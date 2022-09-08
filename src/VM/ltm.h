@@ -9,9 +9,8 @@
  * grep "ORDER TM"
  */
 // clang-format off
-typedef enum
-{
-    
+typedef enum {
+
     TM_INDEX,
     TM_NEWINDEX,
     TM_MODE,
@@ -22,7 +21,7 @@ typedef enum
 
     TM_EQ, /* last tag method with `fast' access */
 
-    
+
     TM_ADD,
     TM_SUB,
     TM_MUL,
@@ -31,7 +30,7 @@ typedef enum
     TM_POW,
     TM_UNM,
 
-    
+
     TM_LT,
     TM_LE,
     TM_CONCAT,
@@ -46,13 +45,15 @@ typedef enum
 #define fasttm(l, et, e) gfasttm(l->global, et, e)
 #define fastnotm(et, e) ((et) == NULL || ((et)->tmcache & (1u << (e))))
 
-LUAI_DATA const char* const luaT_typenames[];
-LUAI_DATA const char* const luaT_eventname[];
+LUAI_DATA const char *const luaT_typenames[];
+LUAI_DATA const char *const luaT_eventname[];
 
-LUAI_FUNC const TValue* luaT_gettm(Table* events, TMS event, TString* ename);
-LUAI_FUNC const TValue* luaT_gettmbyobj(lua_State* L, const TValue* o, TMS event);
+LUAI_FUNC const TValue *luaT_gettm(Table *events, TMS event, TString *ename);
 
-LUAI_FUNC const TString* luaT_objtypenamestr(lua_State* L, const TValue* o);
-LUAI_FUNC const char* luaT_objtypename(lua_State* L, const TValue* o);
+LUAI_FUNC const TValue *luaT_gettmbyobj(lua_State *L, const TValue *o, TMS event);
 
-LUAI_FUNC void luaT_init(lua_State* L);
+LUAI_FUNC const TString *luaT_objtypenamestr(lua_State *L, const TValue *o);
+
+LUAI_FUNC const char *luaT_objtypename(lua_State *L, const TValue *o);
+
+LUAI_FUNC void luaT_init(lua_State *L);

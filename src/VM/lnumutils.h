@@ -15,8 +15,7 @@
 #define luai_numlt(a, b) ((a) < (b))
 #define luai_numle(a, b) ((a) <= (b))
 
-inline bool luai_veceq(const float* a, const float* b)
-{
+inline bool luai_veceq(const float *a, const float *b) {
 #if LUA_VECTOR_SIZE == 4
     return a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] == b[3];
 #else
@@ -24,8 +23,7 @@ inline bool luai_veceq(const float* a, const float* b)
 #endif
 }
 
-inline bool luai_vecisnan(const float* a)
-{
+inline bool luai_vecisnan(const float *a) {
 #if LUA_VECTOR_SIZE == 4
     return a[0] != a[0] || a[1] != a[1] || a[2] != a[2] || a[3] != a[3];
 #else
@@ -34,10 +32,10 @@ inline bool luai_vecisnan(const float* a)
 }
 
 LUAU_FASTMATH_BEGIN
-inline double luai_nummod(double a, double b)
-{
+inline double luai_nummod(double a, double b) {
     return a - floor(a / b) * b;
 }
+
 LUAU_FASTMATH_END
 
 #define luai_num2int(i, d) ((i) = (int)(d))
@@ -57,6 +55,8 @@ LUAU_FASTMATH_END
 
 #define LUAI_MAXNUM2STR 48
 
-LUAI_FUNC char* luai_num2str(char* buf, double n);
+        LUAI_FUNC
+
+char *luai_num2str(char *buf, double n);
 
 #define luai_str2num(s, p) strtod((s), (p))

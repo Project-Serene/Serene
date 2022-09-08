@@ -9,516 +9,433 @@
 #include <type_traits>
 #include <stdint.h>
 
-namespace Luau
-{
+namespace Luau {
 
-struct DenseHashPointer
-{
-    size_t operator()(const void* key) const
-    {
-        return (uintptr_t(key) >> 4) ^ (uintptr_t(key) >> 9);
-    }
-};
+    struct DenseHashPointer {
+        size_t operator()(const void *key) const {
+            return (uintptr_t(key) >> 4) ^ (uintptr_t(key) >> 9);
+        }
+    };
 
 // Internal implementation of DenseHashSet and DenseHashMap
-namespace detail
-{
+    namespace detail {
 
-template<typename T>
-using DenseHashDefault = std::conditional_t<std::is_pointer_v<T>, DenseHashPointer, std::hash<T>>;
+        template<typename T>
+        using DenseHashDefault = std::conditional_t<std::is_pointer_v<T>, DenseHashPointer, std::hash<T>>;
 
-template<typename Key, typename Item, typename MutableItem, typename ItemInterface, typename Hash, typename Eq>
-class DenseHashTable
-{
-public:
-    class const_iterator;
-    class iterator;
+        template<typename Key, typename Item, typename MutableItem, typename ItemInterface, typename Hash, typename Eq>
+        class DenseHashTable {
+        public:
+            class const_iterator;
 
-    DenseHashTable(const Key& empty_key, size_t buckets = 0)
-        : count(0)
-        , empty_key(empty_key)
-    {
-        // buckets has to be power-of-two or zero
-        LUAU_ASSERT((buckets & (buckets - 1)) == 0);
+            class iterator;
 
-        // don't move this to initializer list! this works around an MSVC codegen issue on AMD CPUs:
-        // https://developercommunity.visualstudio.com/t/stdvector-constructor-from-size-t-is-25-times-slow/1546547
-        if (buckets)
-            resize_data<Item>(buckets);
-    }
+            DenseHashTable(const Key &empty_key, size_t buckets = 0)
+                    : count(0), empty_key(empty_key) {
+                // buckets has to be power-of-two or zero
+                LUAU_ASSERT((buckets & (buckets - 1)) == 0);
 
-    void clear()
-    {
-        data.clear();
-        count = 0;
-    }
-
-    Item* insert_unsafe(const Key& key)
-    {
-        // It is invalid to insert empty_key into the table since it acts as a "entry does not exist" marker
-        LUAU_ASSERT(!eq(key, empty_key));
-
-        size_t hashmod = data.size() - 1;
-        size_t bucket = hasher(key) & hashmod;
-
-        for (size_t probe = 0; probe <= hashmod; ++probe)
-        {
-            Item& probe_item = data[bucket];
-
-            // Element does not exist, insert here
-            if (eq(ItemInterface::getKey(probe_item), empty_key))
-            {
-                ItemInterface::setKey(probe_item, key);
-                count++;
-                return &probe_item;
+                // don't move this to initializer list! this works around an MSVC codegen issue on AMD CPUs:
+                // https://developercommunity.visualstudio.com/t/stdvector-constructor-from-size-t-is-25-times-slow/1546547
+                if (buckets)
+                    resize_data<Item>(buckets);
             }
 
-            // Element already exists
-            if (eq(ItemInterface::getKey(probe_item), key))
-            {
-                return &probe_item;
+            void clear() {
+                data.clear();
+                count = 0;
             }
 
-            // Hash collision, quadratic probing
-            bucket = (bucket + probe + 1) & hashmod;
-        }
+            Item *insert_unsafe(const Key &key) {
+                // It is invalid to insert empty_key into the table since it acts as a "entry does not exist" marker
+                LUAU_ASSERT(!eq(key, empty_key));
 
-        // Hash table is full - this should not happen
-        LUAU_ASSERT(false);
-        return NULL;
-    }
+                size_t hashmod = data.size() - 1;
+                size_t bucket = hasher(key) & hashmod;
 
-    const Item* find(const Key& key) const
-    {
-        if (data.empty())
-            return 0;
-        if (eq(key, empty_key))
-            return 0;
+                for (size_t probe = 0; probe <= hashmod; ++probe) {
+                    Item &probe_item = data[bucket];
 
-        size_t hashmod = data.size() - 1;
-        size_t bucket = hasher(key) & hashmod;
+                    // Element does not exist, insert here
+                    if (eq(ItemInterface::getKey(probe_item), empty_key)) {
+                        ItemInterface::setKey(probe_item, key);
+                        count++;
+                        return &probe_item;
+                    }
 
-        for (size_t probe = 0; probe <= hashmod; ++probe)
-        {
-            const Item& probe_item = data[bucket];
+                    // Element already exists
+                    if (eq(ItemInterface::getKey(probe_item), key)) {
+                        return &probe_item;
+                    }
 
-            // Element exists
-            if (eq(ItemInterface::getKey(probe_item), key))
-                return &probe_item;
+                    // Hash collision, quadratic probing
+                    bucket = (bucket + probe + 1) & hashmod;
+                }
 
-            // Element does not exist
-            if (eq(ItemInterface::getKey(probe_item), empty_key))
+                // Hash table is full - this should not happen
+                LUAU_ASSERT(false);
                 return NULL;
-
-            // Hash collision, quadratic probing
-            bucket = (bucket + probe + 1) & hashmod;
-        }
-
-        // Hash table is full - this should not happen
-        LUAU_ASSERT(false);
-        return NULL;
-    }
-
-    void rehash()
-    {
-        size_t newsize = data.empty() ? 16 : data.size() * 2;
-
-        if (data.empty() && data.capacity() >= newsize)
-        {
-            LUAU_ASSERT(count == 0);
-            resize_data<Item>(newsize);
-            return;
-        }
-
-        DenseHashTable newtable(empty_key, newsize);
-
-        for (size_t i = 0; i < data.size(); ++i)
-        {
-            const Key& key = ItemInterface::getKey(data[i]);
-
-            if (!eq(key, empty_key))
-            {
-                Item* item = newtable.insert_unsafe(key);
-                *item = std::move(data[i]);
             }
-        }
 
-        LUAU_ASSERT(count == newtable.count);
-        data.swap(newtable.data);
-    }
+            const Item *find(const Key &key) const {
+                if (data.empty())
+                    return 0;
+                if (eq(key, empty_key))
+                    return 0;
 
-    void rehash_if_full()
-    {
-        if (count >= data.size() * 3 / 4)
-        {
-            rehash();
-        }
-    }
+                size_t hashmod = data.size() - 1;
+                size_t bucket = hasher(key) & hashmod;
 
-    const_iterator begin() const
-    {
-        size_t start = 0;
+                for (size_t probe = 0; probe <= hashmod; ++probe) {
+                    const Item &probe_item = data[bucket];
 
-        while (start < data.size() && eq(ItemInterface::getKey(data[start]), empty_key))
-            start++;
+                    // Element exists
+                    if (eq(ItemInterface::getKey(probe_item), key))
+                        return &probe_item;
 
-        return const_iterator(this, start);
-    }
+                    // Element does not exist
+                    if (eq(ItemInterface::getKey(probe_item), empty_key))
+                        return NULL;
 
-    const_iterator end() const
-    {
-        return const_iterator(this, data.size());
-    }
+                    // Hash collision, quadratic probing
+                    bucket = (bucket + probe + 1) & hashmod;
+                }
 
-    iterator begin()
-    {
-        size_t start = 0;
+                // Hash table is full - this should not happen
+                LUAU_ASSERT(false);
+                return NULL;
+            }
 
-        while (start < data.size() && eq(ItemInterface::getKey(data[start]), empty_key))
-            start++;
+            void rehash() {
+                size_t newsize = data.empty() ? 16 : data.size() * 2;
 
-        return iterator(this, start);
-    }
+                if (data.empty() && data.capacity() >= newsize) {
+                    LUAU_ASSERT(count == 0);
+                    resize_data<Item>(newsize);
+                    return;
+                }
 
-    iterator end()
-    {
-        return iterator(this, data.size());
-    }
+                DenseHashTable newtable(empty_key, newsize);
 
-    size_t size() const
-    {
-        return count;
-    }
+                for (size_t i = 0; i < data.size(); ++i) {
+                    const Key &key = ItemInterface::getKey(data[i]);
 
-    class const_iterator
-    {
-    public:
-        const_iterator()
-            : set(0)
-            , index(0)
-        {
-        }
+                    if (!eq(key, empty_key)) {
+                        Item *item = newtable.insert_unsafe(key);
+                        *item = std::move(data[i]);
+                    }
+                }
 
-        const_iterator(const DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq>* set, size_t index)
-            : set(set)
-            , index(index)
-        {
-        }
+                LUAU_ASSERT(count == newtable.count);
+                data.swap(newtable.data);
+            }
 
-        const Item& operator*() const
-        {
-            return set->data[index];
-        }
+            void rehash_if_full() {
+                if (count >= data.size() * 3 / 4) {
+                    rehash();
+                }
+            }
 
-        const Item* operator->() const
-        {
-            return &set->data[index];
-        }
+            const_iterator begin() const {
+                size_t start = 0;
 
-        bool operator==(const const_iterator& other) const
-        {
-            return set == other.set && index == other.index;
-        }
+                while (start < data.size() && eq(ItemInterface::getKey(data[start]), empty_key))
+                    start++;
 
-        bool operator!=(const const_iterator& other) const
-        {
-            return set != other.set || index != other.index;
-        }
+                return const_iterator(this, start);
+            }
 
-        const_iterator& operator++()
-        {
-            size_t size = set->data.size();
+            const_iterator end() const {
+                return const_iterator(this, data.size());
+            }
 
-            do
-            {
-                index++;
-            } while (index < size && set->eq(ItemInterface::getKey(set->data[index]), set->empty_key));
+            iterator begin() {
+                size_t start = 0;
 
-            return *this;
-        }
+                while (start < data.size() && eq(ItemInterface::getKey(data[start]), empty_key))
+                    start++;
 
-        const_iterator operator++(int)
-        {
-            const_iterator res = *this;
-            ++*this;
-            return res;
-        }
+                return iterator(this, start);
+            }
 
-    private:
-        const DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq>* set;
-        size_t index;
-    };
+            iterator end() {
+                return iterator(this, data.size());
+            }
 
-    class iterator
-    {
-    public:
-        iterator()
-            : set(0)
-            , index(0)
-        {
-        }
+            size_t size() const {
+                return count;
+            }
 
-        iterator(DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq>* set, size_t index)
-            : set(set)
-            , index(index)
-        {
-        }
+            class const_iterator {
+            public:
+                const_iterator()
+                        : set(0), index(0) {
+                }
 
-        MutableItem& operator*() const
-        {
-            return *reinterpret_cast<MutableItem*>(&set->data[index]);
-        }
+                const_iterator(const DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq> *set, size_t index)
+                        : set(set), index(index) {
+                }
 
-        MutableItem* operator->() const
-        {
-            return reinterpret_cast<MutableItem*>(&set->data[index]);
-        }
+                const Item &operator*() const {
+                    return set->data[index];
+                }
 
-        bool operator==(const iterator& other) const
-        {
-            return set == other.set && index == other.index;
-        }
+                const Item *operator->() const {
+                    return &set->data[index];
+                }
 
-        bool operator!=(const iterator& other) const
-        {
-            return set != other.set || index != other.index;
-        }
+                bool operator==(const const_iterator &other) const {
+                    return set == other.set && index == other.index;
+                }
 
-        iterator& operator++()
-        {
-            size_t size = set->data.size();
+                bool operator!=(const const_iterator &other) const {
+                    return set != other.set || index != other.index;
+                }
 
-            do
-            {
-                index++;
-            } while (index < size && set->eq(ItemInterface::getKey(set->data[index]), set->empty_key));
+                const_iterator &operator++() {
+                    size_t size = set->data.size();
 
-            return *this;
-        }
+                    do {
+                        index++;
+                    } while (index < size && set->eq(ItemInterface::getKey(set->data[index]), set->empty_key));
 
-        iterator operator++(int)
-        {
-            iterator res = *this;
-            ++*this;
-            return res;
-        }
+                    return *this;
+                }
 
-    private:
-        DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq>* set;
-        size_t index;
-    };
+                const_iterator operator++(int) {
+                    const_iterator res = *this;
+                    ++*this;
+                    return res;
+                }
 
-private:
-    template<typename T>
-    void resize_data(size_t count, typename std::enable_if_t<std::is_copy_assignable_v<T>>* dummy = nullptr)
-    {
-        data.resize(count, ItemInterface::create(empty_key));
-    }
+            private:
+                const DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq> *set;
+                size_t index;
+            };
 
-    template<typename T>
-    void resize_data(size_t count, typename std::enable_if_t<!std::is_copy_assignable_v<T>>* dummy = nullptr)
-    {
-        size_t size = data.size();
-        data.resize(count);
+            class iterator {
+            public:
+                iterator()
+                        : set(0), index(0) {
+                }
 
-        for (size_t i = size; i < count; i++)
-            data[i].first = empty_key;
-    }
+                iterator(DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq> *set, size_t index)
+                        : set(set), index(index) {
+                }
 
-    std::vector<Item> data;
-    size_t count;
-    Key empty_key;
-    Hash hasher;
-    Eq eq;
-};
+                MutableItem &operator*() const {
+                    return *reinterpret_cast<MutableItem *>(&set->data[index]);
+                }
 
-template<typename Key>
-struct ItemInterfaceSet
-{
-    static const Key& getKey(const Key& item)
-    {
-        return item;
-    }
+                MutableItem *operator->() const {
+                    return reinterpret_cast<MutableItem *>(&set->data[index]);
+                }
 
-    static void setKey(Key& item, const Key& key)
-    {
-        item = key;
-    }
+                bool operator==(const iterator &other) const {
+                    return set == other.set && index == other.index;
+                }
 
-    static Key create(const Key& key)
-    {
-        return key;
-    }
-};
+                bool operator!=(const iterator &other) const {
+                    return set != other.set || index != other.index;
+                }
 
-template<typename Key, typename Value>
-struct ItemInterfaceMap
-{
-    static const Key& getKey(const std::pair<Key, Value>& item)
-    {
-        return item.first;
-    }
+                iterator &operator++() {
+                    size_t size = set->data.size();
 
-    static void setKey(std::pair<Key, Value>& item, const Key& key)
-    {
-        item.first = key;
-    }
+                    do {
+                        index++;
+                    } while (index < size && set->eq(ItemInterface::getKey(set->data[index]), set->empty_key));
 
-    static std::pair<Key, Value> create(const Key& key)
-    {
-        return std::pair<Key, Value>(key, Value());
-    }
-};
+                    return *this;
+                }
 
-} // namespace detail
+                iterator operator++(int) {
+                    iterator res = *this;
+                    ++*this;
+                    return res;
+                }
+
+            private:
+                DenseHashTable<Key, Item, MutableItem, ItemInterface, Hash, Eq> *set;
+                size_t index;
+            };
+
+        private:
+            template<typename T>
+            void resize_data(size_t count, typename std::enable_if_t<std::is_copy_assignable_v<T>> *dummy = nullptr) {
+                data.resize(count, ItemInterface::create(empty_key));
+            }
+
+            template<typename T>
+            void resize_data(size_t count, typename std::enable_if_t<!std::is_copy_assignable_v<T>> *dummy = nullptr) {
+                size_t size = data.size();
+                data.resize(count);
+
+                for (size_t i = size; i < count; i++)
+                    data[i].first = empty_key;
+            }
+
+            std::vector<Item> data;
+            size_t count;
+            Key empty_key;
+            Hash hasher;
+            Eq eq;
+        };
+
+        template<typename Key>
+        struct ItemInterfaceSet {
+            static const Key &getKey(const Key &item) {
+                return item;
+            }
+
+            static void setKey(Key &item, const Key &key) {
+                item = key;
+            }
+
+            static Key create(const Key &key) {
+                return key;
+            }
+        };
+
+        template<typename Key, typename Value>
+        struct ItemInterfaceMap {
+            static const Key &getKey(const std::pair<Key, Value> &item) {
+                return item.first;
+            }
+
+            static void setKey(std::pair<Key, Value> &item, const Key &key) {
+                item.first = key;
+            }
+
+            static std::pair<Key, Value> create(const Key &key) {
+                return std::pair<Key, Value>(key, Value());
+            }
+        };
+
+    } // namespace detail
 
 // This is a faster alternative of unordered_set, but it does not implement the same interface (i.e. it does not support erasing)
-template<typename Key, typename Hash = detail::DenseHashDefault<Key>, typename Eq = std::equal_to<Key>>
-class DenseHashSet
-{
-    typedef detail::DenseHashTable<Key, Key, Key, detail::ItemInterfaceSet<Key>, Hash, Eq> Impl;
-    Impl impl;
+    template<typename Key, typename Hash = detail::DenseHashDefault<Key>, typename Eq = std::equal_to<Key>>
+    class DenseHashSet {
+        typedef detail::DenseHashTable<Key, Key, Key, detail::ItemInterfaceSet<Key>, Hash, Eq> Impl;
+        Impl impl;
 
-public:
-    typedef typename Impl::const_iterator const_iterator;
-    typedef typename Impl::iterator iterator;
+    public:
+        typedef typename Impl::const_iterator const_iterator;
+        typedef typename Impl::iterator iterator;
 
-    DenseHashSet(const Key& empty_key, size_t buckets = 0)
-        : impl(empty_key, buckets)
-    {
-    }
+        DenseHashSet(const Key &empty_key, size_t buckets = 0)
+                : impl(empty_key, buckets) {
+        }
 
-    void clear()
-    {
-        impl.clear();
-    }
+        void clear() {
+            impl.clear();
+        }
 
-    const Key& insert(const Key& key)
-    {
-        impl.rehash_if_full();
-        return *impl.insert_unsafe(key);
-    }
+        const Key &insert(const Key &key) {
+            impl.rehash_if_full();
+            return *impl.insert_unsafe(key);
+        }
 
-    const Key* find(const Key& key) const
-    {
-        return impl.find(key);
-    }
+        const Key *find(const Key &key) const {
+            return impl.find(key);
+        }
 
-    bool contains(const Key& key) const
-    {
-        return impl.find(key) != 0;
-    }
+        bool contains(const Key &key) const {
+            return impl.find(key) != 0;
+        }
 
-    size_t size() const
-    {
-        return impl.size();
-    }
+        size_t size() const {
+            return impl.size();
+        }
 
-    bool empty() const
-    {
-        return impl.size() == 0;
-    }
+        bool empty() const {
+            return impl.size() == 0;
+        }
 
-    const_iterator begin() const
-    {
-        return impl.begin();
-    }
+        const_iterator begin() const {
+            return impl.begin();
+        }
 
-    const_iterator end() const
-    {
-        return impl.end();
-    }
+        const_iterator end() const {
+            return impl.end();
+        }
 
-    iterator begin()
-    {
-        return impl.begin();
-    }
+        iterator begin() {
+            return impl.begin();
+        }
 
-    iterator end()
-    {
-        return impl.end();
-    }
-};
+        iterator end() {
+            return impl.end();
+        }
+    };
 
 // This is a faster alternative of unordered_map, but it does not implement the same interface (i.e. it does not support erasing and has
 // contains() instead of find())
-template<typename Key, typename Value, typename Hash = detail::DenseHashDefault<Key>, typename Eq = std::equal_to<Key>>
-class DenseHashMap
-{
-    typedef detail::DenseHashTable<Key, std::pair<Key, Value>, std::pair<const Key, Value>, detail::ItemInterfaceMap<Key, Value>, Hash, Eq> Impl;
-    Impl impl;
+    template<typename Key, typename Value, typename Hash = detail::DenseHashDefault<Key>, typename Eq = std::equal_to<Key>>
+    class DenseHashMap {
+        typedef detail::DenseHashTable<Key, std::pair<Key, Value>, std::pair<const Key, Value>, detail::ItemInterfaceMap<Key, Value>, Hash, Eq> Impl;
+        Impl impl;
 
-public:
-    typedef typename Impl::const_iterator const_iterator;
-    typedef typename Impl::iterator iterator;
+    public:
+        typedef typename Impl::const_iterator const_iterator;
+        typedef typename Impl::iterator iterator;
 
-    DenseHashMap(const Key& empty_key, size_t buckets = 0)
-        : impl(empty_key, buckets)
-    {
-    }
+        DenseHashMap(const Key &empty_key, size_t buckets = 0)
+                : impl(empty_key, buckets) {
+        }
 
-    void clear()
-    {
-        impl.clear();
-    }
+        void clear() {
+            impl.clear();
+        }
 
-    // Note: this reference is invalidated by any insert operation (i.e. operator[])
-    Value& operator[](const Key& key)
-    {
-        impl.rehash_if_full();
-        return impl.insert_unsafe(key)->second;
-    }
+        // Note: this reference is invalidated by any insert operation (i.e. operator[])
+        Value &operator[](const Key &key) {
+            impl.rehash_if_full();
+            return impl.insert_unsafe(key)->second;
+        }
 
-    // Note: this pointer is invalidated by any insert operation (i.e. operator[])
-    const Value* find(const Key& key) const
-    {
-        const std::pair<Key, Value>* result = impl.find(key);
+        // Note: this pointer is invalidated by any insert operation (i.e. operator[])
+        const Value *find(const Key &key) const {
+            const std::pair<Key, Value> *result = impl.find(key);
 
-        return result ? &result->second : NULL;
-    }
+            return result ? &result->second : NULL;
+        }
 
-    // Note: this pointer is invalidated by any insert operation (i.e. operator[])
-    Value* find(const Key& key)
-    {
-        const std::pair<Key, Value>* result = impl.find(key);
+        // Note: this pointer is invalidated by any insert operation (i.e. operator[])
+        Value *find(const Key &key) {
+            const std::pair<Key, Value> *result = impl.find(key);
 
-        return result ? const_cast<Value*>(&result->second) : NULL;
-    }
+            return result ? const_cast<Value *>(&result->second) : NULL;
+        }
 
-    bool contains(const Key& key) const
-    {
-        return impl.find(key) != 0;
-    }
+        bool contains(const Key &key) const {
+            return impl.find(key) != 0;
+        }
 
-    size_t size() const
-    {
-        return impl.size();
-    }
+        size_t size() const {
+            return impl.size();
+        }
 
-    bool empty() const
-    {
-        return impl.size() == 0;
-    }
+        bool empty() const {
+            return impl.size() == 0;
+        }
 
-    const_iterator begin() const
-    {
-        return impl.begin();
-    }
+        const_iterator begin() const {
+            return impl.begin();
+        }
 
-    const_iterator end() const
-    {
-        return impl.end();
-    }
+        const_iterator end() const {
+            return impl.end();
+        }
 
-    iterator begin()
-    {
-        return impl.begin();
-    }
+        iterator begin() {
+            return impl.begin();
+        }
 
-    iterator end()
-    {
-        return impl.end();
-    }
-};
+        iterator end() {
+            return impl.end();
+        }
+    };
 
 } // namespace Luau

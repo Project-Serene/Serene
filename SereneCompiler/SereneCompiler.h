@@ -1,7 +1,10 @@
-//
-// Created by manna on 8/1/2022.
-//
+/*
 
+    Serene Compiler
+
+
+
+*/
 #ifndef LUAU_SERENECOMPILER_H
 #define LUAU_SERENECOMPILER_H
 

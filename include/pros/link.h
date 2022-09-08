@@ -27,15 +27,15 @@ extern "C" {
 namespace pros {
 #endif
 
-typedef enum link_type_e {
-    E_LINK_RECIEVER = 0,
-    E_LINK_TRANSMITTER
-} link_type_e_t;
+    typedef enum link_type_e {
+        E_LINK_RECIEVER = 0,
+        E_LINK_TRANSMITTER
+    } link_type_e_t;
 
 #define LINK_BUFFER_SIZE 512
 
 #ifdef __cplusplus
-namespace c {
+    namespace c {
 #endif
 
 /**
@@ -60,7 +60,7 @@ namespace c {
  *
  * \return PROS_ERR if initialization fails, 1 if the initialization succeeds.
  */
-uint32_t link_init(uint8_t port, const char* link_id, link_type_e_t type);
+        uint32_t link_init(uint8_t port, const char *link_id, link_type_e_t type);
 
 /**
  * Initializes a link on a radio port, with an indicated type and the ability for
@@ -85,7 +85,7 @@ uint32_t link_init(uint8_t port, const char* link_id, link_type_e_t type);
  *
  * \return PROS_ERR if initialization fails, 1 if the initialization succeeds.
  */
-uint32_t link_init_override(uint8_t port, const char* link_id, link_type_e_t type);
+        uint32_t link_init_override(uint8_t port, const char *link_id, link_type_e_t type);
 
 /**
  * Checks if a radio link on a port is active or not.
@@ -101,7 +101,7 @@ uint32_t link_init_override(uint8_t port, const char* link_id, link_type_e_t typ
  *
  * \return If a radio is connected to a port and it's connected to a link.
  */
-bool link_connected(uint8_t port);
+        bool link_connected(uint8_t port);
 
 /**
  * Returns the bytes of data available to be read  
@@ -118,7 +118,7 @@ bool link_connected(uint8_t port);
  * \return PROS_ERR if port is not a link/radio, else the bytes available to be
  * read by the user.
  */
-uint32_t link_raw_receivable_size(uint8_t port);
+        uint32_t link_raw_receivable_size(uint8_t port);
 
 /**
  * Returns the bytes of data available in transmission buffer.
@@ -134,7 +134,7 @@ uint32_t link_raw_receivable_size(uint8_t port);
  *
  * \return PROS_ERR if port is not a link/radio, 
  */
-uint32_t link_raw_transmittable_size(uint8_t port);
+        uint32_t link_raw_transmittable_size(uint8_t port);
 
 /**
  * Send raw serial data through vexlink.
@@ -158,7 +158,7 @@ uint32_t link_raw_transmittable_size(uint8_t port);
  * \return PROS_ERR if port is not a link, and the successfully transmitted 
  * data size if it succeeded.
  */
-uint32_t link_transmit_raw(uint8_t port, void* data, uint16_t data_size);
+        uint32_t link_transmit_raw(uint8_t port, void *data, uint16_t data_size);
 
 /**
  * Receive raw serial data through vexlink.
@@ -181,7 +181,7 @@ uint32_t link_transmit_raw(uint8_t port, void* data, uint16_t data_size);
  * \return PROS_ERR if port is not a link, and the successfully received 
  * data size if it succeeded.
  */
-uint32_t link_receive_raw(uint8_t port, void* dest, uint16_t data_size);
+        uint32_t link_receive_raw(uint8_t port, void *dest, uint16_t data_size);
 
 /**
  * Send packeted message through vexlink, with a checksum and start byte.
@@ -205,7 +205,7 @@ uint32_t link_receive_raw(uint8_t port, void* dest, uint16_t data_size);
  * \return PROS_ERR if port is not a link, and the successfully transmitted 
  * data size if it succeeded.
  */
-uint32_t link_transmit(uint8_t port, void* data, uint16_t data_size);
+        uint32_t link_transmit(uint8_t port, void *data, uint16_t data_size);
 
 /**
  * Receive packeted message through vexlink, with a checksum and start byte.
@@ -229,7 +229,7 @@ uint32_t link_transmit(uint8_t port, void* data, uint16_t data_size);
  * \return PROS_ERR if port is not a link or protocol error, and the successfully 
  * transmitted data size if it succeeded.
  */
-uint32_t link_receive(uint8_t port, void* dest, uint16_t data_size);
+        uint32_t link_receive(uint8_t port, void *dest, uint16_t data_size);
 
 /**
  * Clear the receive buffer of the link, and discarding the data.
@@ -246,10 +246,10 @@ uint32_t link_receive(uint8_t port, void* dest, uint16_t data_size);
  * \return PROS_ERR if port is not a link, and the successfully received 
  * data size if it succeeded.
  */
-uint32_t link_clear_receive_buf(uint8_t port);
+        uint32_t link_clear_receive_buf(uint8_t port);
 
 #ifdef __cplusplus
-}
+    }
 }
 }
 #endif
