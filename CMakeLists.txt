@@ -11,6 +11,7 @@ option(LUAU_BUILD_WEB "Build Web module" OFF)
 option(LUAU_WERROR "Warnings as errors" OFF)
 option(LUAU_STATIC_CRT "Link with the static CRT (/MT)" OFF)
 option(LUAU_EXTERN_C "Use extern C for all APIs" OFF)
+option(SERENE_BUILD_COMPILER "BUILD SERENE COMPILER" ON)
 
 if (LUAU_STATIC_CRT)
     cmake_minimum_required(VERSION 3.15)
@@ -24,7 +25,8 @@ add_library(Luau.Ast STATIC)
 add_library(Luau.Compiler STATIC)
 add_library(Luau.Analysis STATIC)
 add_library(Luau.CodeGen STATIC)
-add_library(Serene.Compiler SHARED SereneCompiler/ByteCodeWriter.h SereneCompiler/ByteCodeWriter.cpp)
+
+add_executable(Serene.Compiler)
 
 include(Sources.cmake)
 
@@ -97,4 +99,3 @@ target_compile_options(Luau.CodeGen PRIVATE ${LUAU_OPTIONS})
 if (LUAU_EXTERN_C)
     target_compile_definitions(Luau.Compiler PUBLIC LUACODE_API=extern\"C\")
 endif ()
-

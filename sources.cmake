@@ -163,7 +163,14 @@ if (TARGET Serene.Compiler)
             SereneCompiler/FileUtils.h
             SereneCompiler/FileUtils.cpp
 
+            SereneCompiler/ByteCodeWriter.h
+            SereneCompiler/ByteCodeWriter.cpp
+
             SereneCompiler/SereneCompiler.h
             SereneCompiler/SereneCompiler.cpp
+
+            SereneCompiler/TOML.h
+
+            SereneCompiler/SereneCLI.cpp
             )
 endif()

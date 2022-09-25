@@ -20,134 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="009f77a6-c53f-47f7-8ce2-f661f7121d9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SereneCompiler/Components/Motor.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SereneCompiler/Components/Motor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SereneCompiler/SereneCLI.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SereneCompiler/TOML.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_8_2022_9_13_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_8_2022_9_13_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/Ast.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/Ast.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/Confusables.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/Confusables.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/DenseHash.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/DenseHash.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/Lexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/Lexer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/Location.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/Location.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/ParseOptions.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/ParseOptions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/ParseResult.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/ParseResult.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/Parser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/StringUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/StringUtils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/include/Luau/TimeTrace.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/include/Luau/TimeTrace.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/Ast.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/Ast.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/Confusables.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/Confusables.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/Lexer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/Lexer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/Location.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/Location.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/Parser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/StringUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/StringUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ast/src/TimeTrace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ast/src/TimeTrace.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/include/Luau/AssemblyBuilderX64.h" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/include/Luau/AssemblyBuilderX64.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/include/Luau/Condition.h" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/include/Luau/Condition.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/include/Luau/Label.h" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/include/Luau/Label.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/include/Luau/OperandX64.h" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/include/Luau/OperandX64.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/include/Luau/RegisterX64.h" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/include/Luau/RegisterX64.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodeGen/src/AssemblyBuilderX64.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/CodeGen/src/AssemblyBuilderX64.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/include/Luau/Bytecode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Common/include/Luau/Bytecode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/include/Luau/Common.h" beforeDir="false" afterPath="$PROJECT_DIR$/Common/include/Luau/Common.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/include/Luau/ExperimentalFlags.h" beforeDir="false" afterPath="$PROJECT_DIR$/Common/include/Luau/ExperimentalFlags.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SereneCompiler/FileUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SereneCompiler/FileUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.h" beforeDir="false" afterPath="$PROJECT_DIR$/SereneCompiler/SereneCompiler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/.clang-format" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/doctest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/include/isocline.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/attr.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/attr.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/bbcode.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/bbcode.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/bbcode_colors.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/common.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/common.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/completers.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/completions.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/completions.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/editline.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/editline_completion.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/editline_help.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/editline_history.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/env.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/highlight.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/highlight.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/history.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/history.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/isocline.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/stringbuf.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/stringbuf.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/term.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/term.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/term_color.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/tty.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/tty.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/tty_esc.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/undo.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/undo.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extern/isocline/src/wcwidth.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/Luau/Bytecode.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Luau/Bytecode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/Luau/Common.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Luau/Common.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/Luau/ExperimentalFlags.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Luau/ExperimentalFlags.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/adi.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/adi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/adi.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/adi.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/apix.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/apix.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/gps.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/gps.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/gps.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/gps.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/imu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/imu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/link.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/link.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/misc.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/misc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pros/rtos.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pros/rtos.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/lbaselib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/lbaselib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/lbitlib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/lbitlib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/lbuiltins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/lbuiltins.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/lbuiltins.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/lbuiltins.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/linit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/linit.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/lmathlib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/lmathlib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/Libraries/loslib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/Libraries/loslib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lapi.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lapi.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lapi.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lapi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/laux.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/laux.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lcorolib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lcorolib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ldblib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ldblib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ldebug.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ldebug.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ldebug.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ldebug.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ldo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ldo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ldo.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ldo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lfunc.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lfunc.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lfunc.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lfunc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lgc.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lgc.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lgc.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lgc.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lgcdebug.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lgcdebug.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lmem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lmem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lmem.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lmem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lnumprint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lnumprint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lnumutils.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lnumutils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lobject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lobject.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lobject.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lobject.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lperf.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lperf.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lstate.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lstate.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lstate.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lstate.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lstring.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lstring.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lstring.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lstring.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lstrlib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lstrlib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ltable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ltable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ltable.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ltable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ltablib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ltablib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ltm.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ltm.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ltm.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ltm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ludata.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ludata.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/ludata.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/ludata.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lutf8lib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lutf8lib.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lvm.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lvm.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lvmexecute.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lvmexecute.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lvmload.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lvmload.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VM/lvmutils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/VM/lvmutils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serene_bytecode.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/serene_bytecode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/sources.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,10 +57,18 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\manna\OneDrive\Documents\GitHub\Project-Serene\Serene\SereneCompiler" />
       <recent name="C:\Users\manna\OneDrive\Documents\GitHub\Project-Serene\Serene\src\VM" />
     </key>
   </component>
@@ -246,6 +136,9 @@
       <workItem from="1660058226230" duration="4000" />
       <workItem from="1660059106458" duration="5266000" />
       <workItem from="1660085295051" duration="688000" />
+      <workItem from="1662652502840" duration="635000" />
+      <workItem from="1662653899790" duration="765000" />
+      <workItem from="1663620458016" duration="4940000" />
     </task>
     <servers />
   </component>

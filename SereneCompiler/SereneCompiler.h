@@ -2,7 +2,10 @@
 
     Serene Compiler
 
-
+    Responsible for:
+        - Performing Lua Analytics (Linting, Checking for Silly Mistakes before sending to compilation)
+        - Compiling Lua Files
+        - Writing Bytecode into byte code file.
 
 */
 #ifndef LUAU_SERENECOMPILER_H
